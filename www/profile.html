@@ -7,12 +7,13 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=no">
 
-        <link rel="stylesheet" href="css/styleWelcome.css" />
+        <link rel="stylesheet" href="css/styleProfile.css" />
         <link rel="stylesheet" type="text/css" href="css/styleMenu.css">
         <link rel="stylesheet" type="text/css" href="fonts/fonts.css">               
 
-        <title>Panel de Control</title>
-        
+        <title>Perfil</title>
+
+
     </head>
     <body>
         <!-- Comienza página Welcome -->
@@ -20,60 +21,81 @@
             
             <!-- Encabezado -->
             <div class="encabezado">
-                <h2><span class="icon-eye"></span> Panel de Control</h2>
+                <h2><span class="icon-profile"></span> Mi Perfil</h2>
                 <div class="menu_bar">
                     <a href="#" class="bt-menu" id="showMenu"><span class="icon-menu"></span> Menu</a>
                 </div>
             </div>
 
             <!-- Contenido de la página -->
-            <div id="contenedor" style="display:none">
+            <div id="contenedor">
                 <div id="clear">
                     <!--<table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-btn-text="Ocultar..." data-column-popup-theme="a">-->
                     <table>
                          <thead>
                            <tr>
-                             <th style="text-align:left;padding-left:5%;">Descripción</th>
-                             <th>Total</th>
+                            <th colspan="2"><span class="icon-user"></span> Información Personal</th>
+                           </tr>
+                           <tr>
+                            <td colspan="2">Información General</td>
                            </tr>
                          </thead>
-                         <tbody>
+                         <tbody id="generalInfo">
                            <tr>
-                             <th><p><span class="icon-mail2"></span> Notificaciones</p></th>
-                             <td><a class="btn" href="notificaciones.html"> Nuevos</a></td>
-                           </tr>
-                           <tr>
-                             <th><p><span class="icon-coin-dollar"></span> Monedero: Comercio Tipo 1</p></th>
-                             <td><a class="btn" href="monedero_movimientos.html?comercio=1">$ </a></td>
+                             <th><p>Fecha de Registro:</p></th>
+                             <td><p></p></td>
                            </tr>
                            <tr>
-                             <th><p><span class="icon-coin-dollar"></span> Monedero: Supermercado</p></th>
-                             <td><a class="btn" href="monedero_movimientos.html?comercio=2">$ </a></td>
+                             <th><p>Patrocinador:</p></th>
+                             <td><p></p></td>                                                     
                            </tr>
                            <tr>
-                             <th><p><span class="icon-coin-dollar"></span> Monedero: Gasolineras</p></th>
-                             <td><a class="btn" href="monedero_movimientos.html?comercio=3">$ </a></td>
+                             <th><p>Nombre:</p></th>
+                             <td><p></p></td>
                            </tr>
                            <tr>
-                             <th><p><span class="icon-coin-dollar"></span> Monedero: Otros Comercios</p></th>
-                             <td><a class="btn" href="monedero_movimientos.html?comercio=4">$ </a></td>
+                             <th><p>Alias:</p></th>
+                             <td><p></p></td>
                            </tr>
                            <tr>
-                             <th><p><span class="icon-star-full"></span> Volúmen Personal</p></th>
-                             <td><a class="btn" href="#"> ptos</a></td>
+                             <th><p>Idioma:</p></th>
+                             <td><p></p></td>
                            </tr>
                            <tr>
-                             <th><p><span class="icon-tree"></span> Visor de Árbol</p></th>
-                             <td><a class="btn" href="volumen_movil.html"> Miembros</a></td>                                                     
+                             <th><p>E-mail:</p></th>
+                             <td><p></p></td>
                            </tr>
-                           <tr style="display:none">
-                             <th><p><span class="icon-user-plus"></span> Inscripciones Recientes</p></th>
-                             <td><a class="btn" href="waiting_room.html"> Miembros</a></td>
-                           </tr>
-                           <tr>
-                             <th><p><span class="icon-flag"></span> Rango</p></th>
-                             <td><a class="btn" href="#"></a></td>
-                           </tr>
+                         </tbody>
+                         <thead>
+                             <tr>
+                                 <td colspan="2">Información de Contacto</td>
+                             </tr>
+                         </thead>
+                         <tbody id="contactInfo">
+                            <tr>
+                                 <th><p>Teléfono:</p></th>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Celular:</p></th>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Fecha de Nacimiento:</p></th>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Sexo:</p></th>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Acceso a OVM y Página Personal:</p></th>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Tipo de Miembro:</p></th>
+                                 <td><p></p></td>
+                            </tr>
                          </tbody>
                    </table>
             
@@ -106,24 +128,31 @@
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/Classes/App.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/Classes/Session.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/Classes/ControlPanel.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Profile.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/Classes/Menu.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/connect.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/welcome.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/lib.js"></script>
     <script type="text/javascript"> 
             //El registro al servicio de google lo hacemos automáticamente
             var app = new App();
-
             //Instancia a la clase Menu
             var menu = new Menu();
-            //Carga Menú
+            //Carga el Menú
             menu.loadMenu();
 
             //Carga imagen ajax
             showWaitLoader('mascaraAJAX');
             $('#mascaraAJAX').fadeIn(300);
+
+            //EXTRACCIÓN DE USERID QUE EJECUTA LA APLICACIÓN//
+            var userId = localStorage.getItem('userIdLocal');
+            //var userId = 12;
+
+            //INSTANCIA A LA CLASE CONTROL PANEL//
+            var profile = new Profile();
+
+            /*Devuelve conjunto de datos para cargar información de perfil del Usuario*/
+            queryData('USP_VBC_GET_USER_PROFILE_INFO', ['integer', userId], profile.fillProfile);
     </script>
     </body>
 </html>

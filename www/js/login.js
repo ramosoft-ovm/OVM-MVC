@@ -36,7 +36,6 @@ $(function(){
     var userName = document.getElementById('username');
     var password = document.getElementById('password');
     var regId = document.getElementById('regId');
-    regId.value = 'lad64a6s4df654as53d1f53a15dsf';
     var save = document.getElementById('save');
     $("#saveSettings").click(function(){
         var sessionLogin = new Session(userName.value, password.value, regId.value, save);

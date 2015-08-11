@@ -7,9 +7,13 @@ function Keyboard(origen, destino, event) {
 Keyboard.prototype.showKeyboard = function(){
 	if (this.event.which === 13) {
 		if (getOS() === 1) {
+			$(this.destino).focus();
 			cordova.plugins.Keyboard.show();
 		}
 		else if (getOS() === 2) {
+			$(this.destino).focus();
+		}
+		else if (getOS() === 3) {
 			$(this.destino).focus();
 		}
     }

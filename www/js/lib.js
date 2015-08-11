@@ -61,3 +61,11 @@ function getOS() {
     };
     return os;
 }
+
+//Genera número aleatorio para el SESSION_ID
+function aleatorio(inferior,superior){ 
+    var numPosibilidades = superior - inferior 
+    var aleat = Math.random() * numPosibilidades 
+    aleat = Math.round(aleat) 
+    return parseInt(inferior) + aleat 
+}

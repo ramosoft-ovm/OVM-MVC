@@ -1,10 +1,11 @@
 function App() {
-    this.initialize(); 
+    that = this;
+    that.initialize();
 }
 
 App.prototype.initialize = function(){
     // Application Constructor 
-    this.bindEvents();  
+    that.bindEvents();  
 };
 
 App.prototype.bindEvents = function(){
@@ -12,18 +13,18 @@ App.prototype.bindEvents = function(){
     // 
     // Bind any events that are required on startup. Common events are: 
     // 'load', 'deviceready', 'offline', and 'online'. 
-    document.addEventListener('deviceready', this.onDeviceReady, false);
-    document.addEventListener("menubutton", this.onMenuKeyDown, false); 
-    document.addEventListener("backbutton", this.onBackKeyDown, false);
+    document.addEventListener('deviceready', that.onDeviceReady, false);
+    document.addEventListener("menubutton", that.onMenuKeyDown, false); 
+    document.addEventListener("backbutton", that.onBackKeyDown, false);
 };
 
 App.prototype.onDeviceReady = function(){
     // deviceready Event Handler 
     // 
-    // The scope of 'this' is the event. In order to call the 'receivedEvent' 
-    // function, we must explicity call 'app.receivedEvent(...);' 
-    app.checkConnection(); 
-    app.receivedEvent('deviceready'); 
+    // The scope of 'that' is the event. In order to call the 'receivedEvent' 
+    // function, we must explicity call 'that.receivedEvent(...);' 
+    that.checkConnection(); 
+    that.receivedEvent('deviceready'); 
 };
 
 App.prototype.receivedEvent = function(id){
@@ -39,7 +40,7 @@ App.prototype.receivedEvent = function(id){
     var pushNotification = window.plugins.pushNotification; 
 
     //Extrae información sobre que Sistema Operativo usa
-    var navInfo = window.navigator.appVersion.toLowerCase();
+    var navInfo = window.navigator.thatVersion.toLowerCase();
     var so = '';
     if(navInfo.indexOf('android') !== -1) {
         so = 'Android';
@@ -55,10 +56,10 @@ App.prototype.receivedEvent = function(id){
     if (so === 'Android') { 
         //alert("Register called");
         //tu Project ID aca!!
-        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"449139096818","ecb":"app.onNotificationGCM"}); 
+        pushNotification.register(that.successHandler, that.errorHandler,{"senderID":"449139096818","ecb":"that.onNotificationGCM"}); 
     } 
     else if (so === 'Macintosh') { 
-        pushNotification.register(this.successHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"}); 
+        pushNotification.register(that.successHandler,that.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"that.onNotificationAPN"}); 
     } 
 };
 
@@ -99,18 +100,18 @@ App.prototype.onNotificationGCM = function(e){
                 else {
                     localStorage.setItem('message',mitexto+'-:-');
                 }*/
-                //app.showNotificactionVBC(e.message);                    
+                //that.showNotificactionVBC(e.message);                    
                 if (mitexto.indexOf("comisión") >= 0) {
-                    app.showConfirmRedirection("comisiones.html", "Nueva Notificación de Comisiones");                        
+                    that.showConfirmRedirection("comisiones.html", "Nueva Notificación de Comisiones");                        
                 }
                 else if (mitexto.indexOf("venta") >= 0) {
-                    app.showConfirmRedirection("ventas.html", "Nueva Notificación de Ventas");
+                    that.showConfirmRedirection("ventas.html", "Nueva Notificación de Ventas");
                 }
                 else if (mitexto.indexOf("nuevo suscrito") >= 0) {
-                    app.showConfirmRedirection("suscriptores.html", "Nueva Notificación de Suscripciones");
+                    that.showConfirmRedirection("suscriptores.html", "Nueva Notificación de Suscripciones");
                 }
                 else {
-                    app.showNotificactionVBC(e.message);
+                    that.showNotificactionVBC(e.message);
                 }
             }
         break; 
@@ -131,10 +132,10 @@ App.prototype.onNotificationAPN = function(event){
      
     if (event.alert) { 
         //navigator.notification.alert(event.alert);
-        app.showNotificactionVBC(event.alert);
+        that.showNotificactionVBC(event.alert);
     } 
     if (event.badge) { 
-        pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge); 
+        pushNotification.setApplicationIconBadgeNumber(that.successHandler, that.errorHandler, event.badge); 
     } 
     if (event.sound) { 
         var snd = new Media(event.sound); 
@@ -151,15 +152,15 @@ App.prototype.onBackKeyDown = function(event){
     if(localStorage.getItem("menuStatus") == 1){
         $('#showMenu').trigger('click');
     }else{
-        if(app.checkRelativeRoot() == 1){
-            app.showConfirm(); return false;
-        }else if(app.checkRelativeRoot() == 2){
-            app.showConfirmRootWelcome(); return false;
-        }else if(app.checkRelativeRoot() == 3){
+        if(that.checkRelativeRoot() == 1){
+            that.showConfirm(); return false;
+        }else if(that.checkRelativeRoot() == 2){
+            that.showConfirmRootWelcome(); return false;
+        }else if(that.checkRelativeRoot() == 3){
             history.back();
-        }else if(app.checkRelativeRoot() == 10){
+        }else if(that.checkRelativeRoot() == 10){
             event.preventDefault();
-        }else if(app.checkRelativeRoot() == 11){
+        }else if(that.checkRelativeRoot() == 11){
             window.location.href = "welcome.html";
         }
     }
@@ -196,14 +197,14 @@ App.prototype.showConfirm = function(){
     navigator.notification.vibrate(500);
     navigator.notification.confirm(
         '¿Realmente desea cerrar la aplicación?', // message
-         app.onConfirm,            // callback to invoke with index of button pressed
+         that.onConfirm,            // callback to invoke with index of button pressed
         'Cerrar Aplicación',           // title
         ['Salir','Cancelar']         // buttonLabels
     );
 };
 
 App.prototype.onConfirm = function(buttonIndex){
-    //Exit the app if the botton pressed was Quit
+    //Exit the that if the botton pressed was Quit
     if(buttonIndex == 1){
         //if(!localStorage.getItem("isCBCheckedLocal")){
             localStorage.removeItem('susc1Local');
@@ -212,7 +213,7 @@ App.prototype.onConfirm = function(buttonIndex){
             localStorage.removeItem('susc4Local');
             localStorage.removeItem('susc5Local');
         //}            
-        navigator.app.exitApp();
+        navigator.that.exitApp();
     }
 };
 
@@ -221,14 +222,14 @@ App.prototype.showConfirmRootWelcome = function(){
     navigator.notification.vibrate(500);
     navigator.notification.confirm(
         'Elija la acción a realizar', // message
-         app.onConfirmRootWelcome,            // callback to invoke with index of button pressed
+         that.onConfirmRootWelcome,            // callback to invoke with index of button pressed
         'Opciones',           // title
         ['Salir','Cerrar Sesión','Cancelar']         // buttonLabels
     );
 };
 
 App.prototype.onConfirmRootWelcome = function(buttonIndex){
-    //Exit the app if the botton pressed was Quit
+    //Exit the that if the botton pressed was Quit
     if(buttonIndex == 1){
         /*if(!localStorage.getItem("isCBCheckedLocal")){*/
             localStorage.removeItem('susc1Local');
@@ -237,16 +238,9 @@ App.prototype.onConfirmRootWelcome = function(buttonIndex){
             localStorage.removeItem('susc4Local');
             localStorage.removeItem('susc5Local');
         //} 
-        navigator.app.exitApp();
+        navigator.that.exitApp();
     }else if(buttonIndex == 2){
-        //if(!localStorage.getItem("isCBCheckedLocal")){
-            localStorage.removeItem('susc1Local');
-            localStorage.removeItem('susc2Local');
-            localStorage.removeItem('susc3Local');
-            localStorage.removeItem('susc4Local');
-            localStorage.removeItem('susc5Local');
-        //}
-        app.showConfirmLogout();
+        that.showConfirmLogout();
     }
 };
 
@@ -257,7 +251,7 @@ App.prototype.showConfirmLogout = function(){
 
         navigator.notification.confirm(
             '¿Realmente desea cerrar la sesión?',
-            app.onConfirmLogout,
+            that.onConfirmLogout,
             'Cerrar Sesión',
             ['Sí, deseo cerrar sesión','Cancelar']
         );
@@ -265,7 +259,8 @@ App.prototype.showConfirmLogout = function(){
 
 App.prototype.onConfirmLogout = function(buttonIndex){
     if(buttonIndex == 1){
-        eliminarCredenciales();
+        var session = new Session();
+        session.deleteCredentials();
     }
 };
 
@@ -275,7 +270,7 @@ App.prototype.showConfirmRedirection = function(ruta, notificación){
     navigator.notification.confirm(
         notificación + "\n" + '¿Desea ir en este momento?',
         function(buttonIndex){
-            app.onConfirmRedirection(buttonIndex, ruta);
+            that.onConfirmRedirection(buttonIndex, ruta);
         },
         'Notificaciones VBC',
         ['Sí, deseo ir ahora','Cancelar']
@@ -291,14 +286,14 @@ App.prototype.onConfirmRedirection = function(buttonIndex, ruta){
 App.prototype.showNotificactionVBC = function(mensaje){
     navigator.notification.alert(
         mensaje,  // message
-        app.alertDismissed,         // callback
+        that.alertDismissed,         // callback
         'Notificación OVM',            // title
         'Hecho'                  // buttonName
     );
 };
 
 App.prototype.checkConnection = function(){
-    //Check if the connection is available, if not quit the app
+    //Check if the connection is available, if not quit the that
     var networkState = navigator.connection.type;
 
     var states = {};
@@ -311,23 +306,23 @@ App.prototype.checkConnection = function(){
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    //Si no hay conexion, cierra la app
+    //Si no hay conexion, cierra la that
     //
     if (states[networkState] == states[Connection.NONE]) {
-        app.showConfirmAlert('¡Lo sentimos, necesita conexión a internet!');
-        //navigator.app.exitApp();
+        that.showConfirmAlert('¡Lo sentimos, necesita conexión a internet!');
+        //navigator.that.exitApp();
     }
 };
 
 App.prototype.cerrarApp = function(){
     // do something
-    navigator.app.exitApp();
+    navigator.that.exitApp();
 };
 
 App.prototype.showConfirmAlert = function(mensaje){
     navigator.notification.alert(
         mensaje,  // message
-        app.cerrarApp,         // callback
+        that.cerrarApp,         // callback
         'Notificación VBC',            // title
         'Hecho'                  // buttonName
     );

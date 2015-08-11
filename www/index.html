@@ -27,11 +27,12 @@
         <script src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/Classes/App.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/Classes/Keyboard.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/Classes/Session.js"></script>
         <script src="js/login.js"></script>
         <script src="js/lib.js"></script>
         <script src="js/connect.js"></script>
         <script type="text/javascript">
-            app.initialize();
+            app = new App();
             
             window.addEventListener('load', (function(){
                 window.setTimeout(function(){

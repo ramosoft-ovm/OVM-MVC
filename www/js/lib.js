@@ -62,10 +62,28 @@ function getOS() {
     return os;
 }
 
-//Genera número aleatorio para el SESSION_ID
+//////////////////////////////////////////////////////////////
+//********Genera número aleatorio para el SESSION_ID********//
 function aleatorio(inferior,superior){ 
     var numPosibilidades = superior - inferior 
     var aleat = Math.random() * numPosibilidades 
     aleat = Math.round(aleat) 
     return parseInt(inferior) + aleat 
+}
+
+//////////////////////////////////////////////////////////////////////
+//********Contador animado para dígitos del Panel de Control********//
+function counter(){
+    //Contador animado para números
+    $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 2000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
 }

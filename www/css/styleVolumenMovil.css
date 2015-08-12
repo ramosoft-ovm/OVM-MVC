@@ -15,10 +15,10 @@ h2{
 .mostrar {
     display: block;
 }
-.graphite li {
+#div_arbol li {
     list-style: none;
 }
-.graphite a {
+#div_arbol a {
     text-decoration: none;
     background: transparent;
     border: 0;
@@ -26,13 +26,13 @@ h2{
     color: black;
 }
 
-#periodo{
+#cmb_periodo{
 	margin-top: 7em;
 	margin-left: 2%;
 	margin-right: 2%;	
 }
 
-.graphite{
+#div_arbol{
 	margin-left: 2%;
 	margin-right: 2%;
 	margin-top: 1.5em;
@@ -47,7 +47,7 @@ h2{
 	background: #b0232a;
 }
 
-.graphite ul{
+#div_arbol ul{
 	background: white;
 }
 

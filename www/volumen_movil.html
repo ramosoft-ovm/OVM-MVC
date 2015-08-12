@@ -6,43 +6,43 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=no">
-
+        <link rel="stylesheet" type="text/css" href="css/styleVolumenMovil.css">
         <link rel="stylesheet" type="text/css" href="css/styleMenu.css">
         <link rel="stylesheet" type="text/css" href="fonts/fonts.css">
-        <link rel="stylesheet" type="text/css" href="css/styleMonedero.css">
+        <style type="text/css">
+            
+        </style>
 
-        <title>Detalles de movimiento</title>
+        <title>Visor de Árbol</title>
+
     </head>
     <body>
-        <div id="cart">
+        <div>
             <!-- Encabezado -->
             <div class="encabezado">
-                <h2><span class="icon-stats-bars"></span> Detalles de Transacción</h2>
+                <h2><span class="icon-tree"></span> Volúmen Móvil</h2>
                 <div class="menu_bar">
                     <a href="#" class="bt-menu" id="showMenu"><span class="icon-menu"></span> Menu</a>
-                </div><!--end menu_bar-->
-            </div><!--end encabezado-->
-            
-            <div>
-                <!-- ***************************************************** -->
-                <!-- ***************************************************** -->
-                <!-- ***************************************************** -->                    
-                <div id="catalogo">
-                    <a href="#" class="btn" id="btn_regresar"><span class="icon-arrow-left icon"></span> Regresar</a><br /><br />
-                    <table id="tbl_detalles">
-                        <thead>
-                            <th colspan="2">Movimiento</th>
-                        </thead>
-                        <tbody id="balance">
-                            <!-- Desde la base -->
-                        </tbody>
-                    </table>
-
                 </div>
-                <!-- ***************************************************** -->
-                <!-- ***************************************************** -->
-                <!-- ***************************************************** -->
             </div>
+
+            <!-- ***************************************************** -->
+            <!-- ***************************************************** -->
+            <!-- ***************************************************** -->
+            <div style="text-align: right" id='divPeriodo'>
+                <select  id="cmb_periodo" name="periodo" class="category">
+                    <!-- Desde la Base -->
+                </select>
+            </div>
+            
+            <div id="div_arbol">
+                <!-- Desde la Base -->
+            </div>
+
+
+            <!-- ***************************************************** -->
+            <!-- ***************************************************** -->
+            <!-- ***************************************************** -->
 
         </div>
 
@@ -50,20 +50,22 @@
             <p class="event listening">Connecting to Device</p>
             <p class="event received">Device is Ready</p>
         </div>
-    
+        
         <!-- ********  MENÚ  ******** -->
         <header>
             <nav id="menu"></nav>
         </header>
         <section id="mascara"></section>
         <div id="mascaraAJAX"></div>
-
+        
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/connect.js"></script>
         <script type="text/javascript" src="js/lib.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/classes/Menu.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/Classes/App.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/monedero_movimientos_detalles.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/Classes/TreeViewer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/volumen_movil.js"></script>
         <script type="text/javascript"> 
             //El registro al servicio de google lo hacemos automáticamente
             var app = new App();

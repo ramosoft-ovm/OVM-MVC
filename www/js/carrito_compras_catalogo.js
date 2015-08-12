@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var cmbCategoria = document.getElementById('cmb_categoria');
+    var divCatalogos = document.getElementById('div_catalogos');
     var userId =  localStorage.getItem('userIdLocal');
     userId = 12;
+    //---------------------
+    catalog = new CatalogCart(cmbCategoria, divCatalogos);
 
     //Carga imagen ajax para carrito compras catalogo
-    showWaitLoader('mascaraAJAX');
-    $('#mascaraAJAX').fadeIn(300);
+    catalog.showAjax();
+
     /////////////////////////////////////////////////
     /******** Llena combobox de categorías *********/
-    var cat = document.getElementById('categoria');
-    //var egoria = getByURL()['categoria']==null ? getByURL()['categoria'] : 1;
     var egoria = 1;
     var get = getByURL()['categoria'];
     if (typeof get != "undefined" && get != '') {
@@ -31,93 +33,31 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     //Carga la tabla cuando se actualiza el combobox
-    cat.addEventListener('change', function(event){
+    cmbCategoria.addEventListener('change', function(event){
         event.target.blur();
-    //Carga imagen ajax
-    showWaitLoader('mascaraAJAX');
-    $('#mascaraAJAX').fadeIn(300);
-        var opcion = cat.value;
-        argumentos[3] = opcion;
-        queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, listaArticulos, 2);
-        egoria = opcion;
-    });
+        //Carga imagen ajax
+        catalog.showAjax();
 
+        argumentos[3] = cmbCategoria.value;
+        queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, catalog.wishlist, 2);
+        egoria = cmbCategoria.value;
+    });
+    Debug(egoria);
     queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, categorias);
     function categorias(dataSet) {
-        var select_categoria = document.getElementById('categoria');
         var rec = dataSet[0];
         for(var idx = 0; idx < dataSet.length; idx++){
             rec = dataSet[idx];
             var options = document.createElement('option');
             options.text = rec['groupName'];
             options.value = rec['itemGroupId'];
-            select_categoria.options.add(options);
+            cmbCategoria.options.add(options);
         }
-        document.getElementById('categoria').value = egoria;
+        cmbCategoria.value = egoria;
     }
-    ///////////////////////////////////////////////
-    /******** Carga articulos a la tabla *********/
-    queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, listaArticulos, 2);
-    function listaArticulos(dataSet) {
-        var catalogo = document.getElementById('catalogo');
-        var rec = dataSet[0];
-        Debug(rec);
-        var text = "", code = '';
-        for(var idx = 0; idx < dataSet.length; idx++){
-            rec = dataSet[idx];
-            code = rec['itemCode'];
-            
-            text += '<table class="marginTable"><tbody>';
-            text += '<tr>';
-            //Código
-            text += '<th width="34%">Código</th>';
-            text += '<td width="66%" id="'+code+'"><a class="btn-tbl" href="carrito_compras_detalles.html?categoria=' +egoria+ '&code=' +code+ '&price=' +
-                rec['price']+ '&origen=catalogo">' +
-                rec['itemCode'] + '</a></td>';
-            text += '</tr>';
-            //Descripción
-            text += '<tr>';
-            text += '<th>Descripción</th>';
-            text += '<td id="DES-' +code+ '">'+rec['description']+'</td>';
-            text += '</tr>';
-            //Precio
-            text += '<tr>';
-            text += '<th>Precio</th>';
-            text += '<td id="PRE-'  +code+ '">$'+rec['price']+'</td>';
-            text += '</tr>';
-            //Puntos
-            text += '<tr>';
-            text += '<th>Puntos</th>';
-            text += '<td id="PUN='  +code+ '">'+rec['itemPvDistributor']+'</td>';
-            text += '</tr>';
-            //Valor consumible
-            text += '<tr>';
-            text += '<th>Valor Consumible</th>';
-            text += '<td id="VCO='  +code+ '">'+rec['itemCvDistributor']+'</td>';
-            text += '</tr>';
-            //Peso
-            text += '<tr>';
-            text += '<th>Peso</th>';
-            text += '<td id="PSO='  +code+ '">'+rec['weight']+'</td>';
-            text += '</tr>';
-            //Comprar
-            text += '<tr>';
-            text += '<th>Comprar</th>';
-            text += '<td id="CAN='  +code+ '">';
-            text += '<input type="number" class="cantidad" id="TXT-'+code+ '" placeholder="cantidad" size="7" />';
-            text += '<input type="submit" class="comprar" value="Agregar" />';
-            text += '</td></tr>';
-            text += '</tbody></table>';
-        }
-        catalogo.innerHTML = text;
-        var comprar = document.querySelectorAll('input[type=submit]');
-        for (var i = 0; i < comprar.length; i++) {
-            comprar[i].addEventListener('click', compra, false);
-        }
-        //Oculta imágen AJAX
-        $('#mascaraAJAX').fadeOut(300);
-        $('#mascaraAJAX').html('');
-    }
+    //carga artículos a la tabla
+    queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, catalog.wishlist, 2);
+
     //Llama a la función buscador pulsación de tecla
     var search = document.getElementById('search');
     search.addEventListener('keyup', function(){
@@ -137,7 +77,6 @@ function compra(event) {
     for (var i = 0; i < celdasT; i++) {
         //Selecciona todas las celdas de la fila
         celdas = celdasTmp[i].cells[1];
-        Debug(celdas.id);
         //Extrae el ID de cada celda
         var idCell = celdas.id;
         var text = '', cadena = '';

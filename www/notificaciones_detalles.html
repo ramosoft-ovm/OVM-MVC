@@ -65,79 +65,36 @@
 
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/classMenu.js"></script>
-    <script type="text/javascript" src="js/menu.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/logout.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/notificaciones.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/lib.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/App.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Session.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Notifications.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Menu.js"></script>        
     <script type="text/javascript" charset="utf-8" src="js/connect.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/lib.js"></script>
     
     <script type="text/javascript"> 
             //El registro al servicio de google lo hacemos automáticamente
-            app.initialize();            
-            menu.cargarMenu();
+            var app = new App();
+            //Instancia a la Clase Menu
+            var menu = new Menu();  
+            //Carga Menu          
+            menu.loadMenu();
 
             //Carga imagen ajax
             showWaitLoader('mascaraAJAX');
-            $('#mascaraAJAX').fadeIn(300);
+            $('#mascaraAJAX').fadeIn(300);  
 
-            //Extracción de valores que vienen por GET
-            var notification_id = getByURL()['notification_id'];
-            var sender_user_id = getByURL()['sender_user_id'];
-            var sender_alias = getByURL()['sender_alias'];
-            var description = getByURL()['description'];
-            var date = getByURL()['date'];
-            var hour = getByURL()['hour'];
-            var period_id = getByURL()['period_id'];
-
-            var text = '';
-
-            text += '<tr>';
-            text += '<th># de Usuario que envió la Notificación: </th>';            
-            text += '<td>'+sender_user_id+'</td>';            
-            text += '</tr>';
-            text += '<tr>';
-            text += '<th>Alias de Usuario que envió la Notificación: </th>';            
-            text += '<td>'+sender_alias+'</td>';            
-            text += '</tr>';
-            text += '<tr>';
-            text += '<th>Fecha de envío: </th>';            
-            text += '<td>'+date+'</td>';            
-            text += '</tr>';
-            text += '<tr>';
-            text += '<th>Hora de Envío: </th>';            
-            text += '<td>'+hour+'</td>';            
-            text += '</tr>';
-            text += '<tr>';
-            text += '<th>Mensaje de la Notificación: </th>';            
-            text += '<td>'+description+'</td>';            
-            text += '</tr>';
-
-            $('table#detalles thead tr th').append(notification_id);
-            $('table#detalles tbody').append(text);
-
-            //oculta imagen ajax
-            $('#mascaraAJAX').fadeOut(300);
-            $('#mascaraAJAX').html(''); 
-
-            //Se actualiza el status de la Notificación para que aparezca como leída
-            var args = [
-                'integer',  notification_id  //@PN_NOTIFICATION_ID
-            ];
-            queryData('USP_VBC_SET_UPDATE_NOTIFICATION_STATUS', args, getError);
-            function getError(dataSet){
-                var rec = dataSet[0];
-                if(rec['error'] == 0){
-                    console.log('Se actulizó el status');
-                }else{
-                    console.log('No se actualizó el status');
-                }
-            }
+            //Instancia a la Clase NotificationDetails
+            var notificationDetail = new NotificationsDetails();
+            //Construye el detalle de la Notifición
+            notificationDetail.buildDetail();
+            //Actualiza el status de la Notificación en la BD
+            notificationDetail.updateNotificationStatus();
 
             //Se regresa por GET el Id del periodo de la Notificación para que se cargue el mismo
             var btnBack = document.getElementById('back');
             btnBack.addEventListener('click', function(){
-                location.href = "notificaciones.html?period_id="+period_id;
+                notificationDetail.goBack();
             });
 
     </script>

@@ -1,13 +1,14 @@
 //====================//
 //CONSTRUCTOR DE CLASE//
 //====================//
-function Notifications(userId, cmbPeriodo){
+function Notifications(userId, cmbPeriodo, period_id_get){
 	that = this;
 	//Parámetros
 	that.userId = userId;
 	that.cmbPeriodo = cmbPeriodo;
+	that.period_id_get = period_id_get; 
 	//Variables Locales
-	that.status = ['checked', 'notChecked'];
+	that.status = ['notChecked', 'checked'];
     that.auxStatus = '';
     that.sender_alias = '';
     that.date_full = '';
@@ -34,7 +35,7 @@ Notifications.prototype.getPeriods = function(dataSet){
 
     for(var idx = 0; idx < dataSet.length; idx++){
         rec = dataSet[idx];
-        if(rec['periodId'] == period_id){
+        if(rec['periodId'] == that.period_id_get){
             text += '<option value="'+ rec["periodId"] +'" selected>'+ rec["description"] +'</option>';
         }
         else{
@@ -44,12 +45,9 @@ Notifications.prototype.getPeriods = function(dataSet){
 
     that.cmbPeriodo.innerHTML += text;
 
-    //===================================//
-    //CARGA DE HISTORIAL DE NOTIFIACIONES//
-    //===================================//
     var args = [
         'integer', that.userId, //@PN_USER_ID
-        'integer', that.periodo.value, //@PN_PERIOD_ID
+        'integer', that.cmbPeriodo.value, //@PN_PERIOD_ID
         'integer',  1  //@PN_FLAG
     ];
     queryData('USP_VBC_GET_USER_NOTIFICATIONS_HIST', args, that.getUserHist);
@@ -103,10 +101,42 @@ Notifications.prototype.getUserHist = function(dataSet){
 //TERMINA CARGA HISTORIAL DE NOTIFICACIONES//
 //=========================================//
 
+//======================================//
+//MUESTRA U OCULTA NOTIFICACIONES LEÍDAS//
+//======================================//
+Notifications.prototype.btnChecked = function(argument){
+	if($('th.checked').is(':hidden')){
+        $('#btnChecked').html('<span class="icon-eye-minus icon"></span> Ocultar');
+        $('th.checked').show(500); 
+    }else{
+        $('#btnChecked').html('<span class="icon-eye-plus icon"></span> Mostrar');
+        $('th.checked').hide(500);
+    }   
+}
+//==============================================//
+//TERMINA MUESTRA U OCULTA NOTIFICACIONES LEÍDAS//
+//==============================================//
+
+//=========================================//
+//MUESTRA U OCULTA NOTIFICACIONES NO LEÍDAS//
+//=========================================//
+Notifications.prototype.btnNotChecked = function(argument){
+	if($('th.notChecked').is(':hidden')){
+        $('#btnNotChecked').html('<span class="icon-eye-minus icon"></span> Ocultar');
+        $('th.notChecked').show(500); 
+    }else{
+        $('#btnNotChecked').html('<span class="icon-eye-plus icon"></span> Mostrar');
+        $('th.notChecked').hide(500);
+    } 
+}
+//=================================================//
+//TERMINA MUESTRA U OCULTA NOTIFICACIONES NO LEÍDAS//
+//=================================================//
+
 //==================================//
 //MUESTRA ELEMENTOS DE ANIMACIÓN AJAX//
 //==================================//
-Notifications.prototype.hideAjax = function(){
+Notifications.prototype.showAjax = function(){
     //Carga imagen ajax
     showWaitLoader('mascaraAJAX');
     $('#mascaraAJAX').fadeIn(300);
@@ -126,3 +156,92 @@ Notifications.prototype.hideAjax = function(){
 //==========================================//
 //TERMINA OCULTA ELEMENTOS DE ANIMACIÓN AJAX//
 //==========================================//
+
+
+
+
+
+//=====================================================================================================================================//
+//=====================================================================================================================================//
+//===================================================INICIA CLASE NOTIFICATIONDETAIL===================================================//
+//=====================================================================================================================================//
+//=====================================================================================================================================//
+
+
+
+
+
+//====================//
+//CONSTRUCTOR DE CLASE 2//
+//====================//
+function NotificationsDetails(){
+	that = this;
+	//Parámetros
+    that.notification_id = getByURL()['notification_id'];
+    that.sender_user_id = getByURL()['sender_user_id'];
+    that.sender_alias = getByURL()['sender_alias'];
+    that.description = getByURL()['description'];
+    that.date = getByURL()['date'];
+    that.hour = getByURL()['hour'];
+    that.period_id = getByURL()['period_id'];
+    //VARIABLE LOCAL
+    that.text = '';
+}
+//============================//
+//TERMINA CONSTRUCTOR DE CLASE 2//
+//============================//
+
+NotificationsDetails.prototype.buildDetail = function(){
+	that.text += '<tr>';
+    that.text += '<th># de Usuario que envió la Notificación: </th>';            
+    that.text += '<td>'+that.sender_user_id+'</td>';            
+    that.text += '</tr>';
+    that.text += '<tr>';
+    that.text += '<th>Alias de Usuario que envió la Notificación: </th>';            
+    that.text += '<td>'+that.sender_alias+'</td>';            
+    that.text += '</tr>';
+    that.text += '<tr>';
+    that.text += '<th>Fecha de envío: </th>';            
+    that.text += '<td>'+that.date+'</td>';            
+    that.text += '</tr>';
+    that.text += '<tr>';
+    that.text += '<th>Hora de Envío: </th>';            
+    that.text += '<td>'+that.hour+'</td>';            
+    that.text += '</tr>';
+    that.text += '<tr>';
+    that.text += '<th>Mensaje de la Notificación: </th>';            
+    that.text += '<td>'+that.description+'</td>';            
+    that.text += '</tr>';
+
+    $('table#detalles thead tr th').append(that.notification_id);
+    $('table#detalles tbody').append(that.text);
+
+    that.hideAjax();    
+}
+
+NotificationsDetails.prototype.updateNotificationStatus = function(){
+	//Se actualiza el status de la Notificación para que aparezca como leída
+    var args = [
+        'integer',  that.notification_id  //@PN_NOTIFICATION_ID
+    ];
+    queryData('USP_VBC_SET_UPDATE_NOTIFICATION_STATUS', args, that.getStatusError);    
+}
+
+NotificationsDetails.prototype.getStatusError = function(dataSet){	
+    var rec = dataSet[0];
+    if(rec['error'] == 0){
+        console.log('Se actulizó el status');
+    }else{
+        console.log('No se actualizó el status');
+    }    
+}
+
+NotificationsDetails.prototype.goBack = function(){
+	location.href = "notificaciones.html?period_id="+that.period_id;
+}
+
+NotificationsDetails.prototype.hideAjax = function(){
+	//oculta imagen ajax
+    $('#mascaraAJAX').fadeOut(300);
+    $('#mascaraAJAX').html(''); 		
+}

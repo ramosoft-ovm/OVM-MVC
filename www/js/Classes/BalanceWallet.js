@@ -183,7 +183,7 @@ BalanceWallet.prototype.details = function(event){
     var referencia = event.target.text;
     var comercio = parseInt(getByURL()['comercio']);
     var lblArreglo = document.getElementById('lbl_arreglo');
-    location.href = 'monedero_movimientos_detalles.html?comercio='+comercio+'&datos='+lblArreglo.innerHTML+'&periodID='+cmbPeriodos.value;
+    location.href = 'monedero_movimientos_detalles.html?comercio='+comercio+'&datos='+lblArreglo.innerHTML+'&periodID='+that.cmbPeriodos.value;
 };
 //=========================\\
 //--Termina botón detalles--\\

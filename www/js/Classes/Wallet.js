@@ -62,8 +62,17 @@ Wallet.prototype.tradeDestinationCharge = function(argument){
     value = value.substring(0, value.indexOf('(')-1);
     that.txtComercioDestino.value = value;
     event.target.blur();
-    that.txtUsuarioDestino.focus();
-    cordova.plugins.Keyboard.show();
+    
+    if (getOS() === 1) {
+        that.txtUsuarioDestino.focus();
+        cordova.plugins.Keyboard.show();
+    }
+    else if (getOS === 2) {
+        that.txtUsuarioDestino.focus();
+    }
+    else if (getOS === 3) {
+        that.txtUsuarioDestino.focus();
+    };
 };
 //=========================================//
 //---Termina carga de usuario destino------//
@@ -86,22 +95,22 @@ Wallet.prototype.validatePassword = function(dataSet){
     else if (status === 1) {
         alert('Usuario inexistente');
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     }
     else if (status === 2) {
         alert('El password es incorrecto');
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     }
     else if (status === 3) {
         alert('No activo');
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     }
     else if (status === 5) {
         alert('Oficina bloqueada');
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     };
 };
 
@@ -126,7 +135,7 @@ Wallet.prototype.validateUser = function(dataSet){
         that.txtUsuarioDestino.value = '';
         that.txtUsuarioDestino.focus();
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     }
 };
 
@@ -155,7 +164,7 @@ Wallet.prototype.transference = function(dataSet){
         that.txtCantidad.value = '';
         that.txtCantidad.focus();
         //Oculta imágen AJAX
-        wallet.hideAjax();
+        that.hideAjax();
     };
 };
 
@@ -283,30 +292,30 @@ Wallet.prototype.emptyField = function(field){
 	}
 };
 Wallet.prototype.equalField = function(field1, field2){
-	var campo2 = field2
+	var campo2 = field2;
 	//Verifica si el campo 2 es un objeto de formulario
 	if (field2.value) {
 		campo2 = field2.value;
 	};
-	if (field1.value === campo2) {
+	if (field1.value !== campo2) {
+        if (getOS() === 1) {
+            field1.focus();
+            cordova.plugins.Keyboard.show();
+        }
+        else if (getOS() === 2) {
+            field1.focus();
+        }
+        else if (getOS() === 3) {
+            field1.focus();
+        };
+        field1.value  = '';
+        //Al ser falso, si el campo 2 es objeto de formulario lo limpia
+        if (field2.value) {
+            field2.value = '';
+        };
 		return true;
 	}
 	else {
-		if (getOS() === 1) {
-			field1.focus();
-			cordova.plugins.Keyboard.show();
-		}
-		else if (getOS() === 2) {
-			field1.focus();
-		}
-		else if (getOS() === 3) {
-			field1.focus();
-		};
-		field1.value  = '';
-		//Al ser falso, si el campo 2 es objeto de formulario lo limpia
-		if (field2.value) {
-			field2.value = '';
-		};
 		return false;
 	}
 };

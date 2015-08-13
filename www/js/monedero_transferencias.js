@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     //Variables glogales
     var userId = localStorage.getItem("userIdLocal");    
-    //userId = '11';
+    userId = '12';
     var userAlias = localStorage.getItem("usernameLocal");
     //---------------------------
     var cmbComercio = document.getElementById('cmb_comercio');
@@ -53,8 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
             //Oculta imágen AJAX
             wallet.hideAjax();
         }
-        else if (!wallet.equalField(txtUsuarioDestino, userId)) {
+        else if (txtUsuarioDestino.value === userId) {
             alert('No se pueden realizar transferencias a si mismo');
+            txtUsuarioDestino.value = '';
+            txtUsuarioDestino.focus();
             //Oculta imágen AJAX
             wallet.hideAjax();
         }
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //Oculta imágen AJAX
             wallet.hideAjax();
         }
-        else if (!wallet.equalField(txtPassword, txtConfirmarPassword)) {
+        else if (wallet.equalField(txtPassword, txtConfirmarPassword)) {
             alert('La contraseña no concuerda, vuelva a escribirla');
             //Oculta imágen AJAX
             wallet.hideAjax();
@@ -90,18 +92,28 @@ document.addEventListener('DOMContentLoaded', function() {
             /******** Valida el password *********/
             var argumentos = [
                 'integer',userId, //Usuario actual
-                'st7ring', txtPassword.value, //Password
+                'string', txtPassword.value, //Password
                 'integer',0 //SESSION_ID
             ];
-            queryData("USP_VBC_VALIDATE_PASSWORD", argumentos, wallet.validatePassword);
+            Debug(argumentos);
+            var wallet2 = new Wallet(cmbComercio,txtComercioDestino,txtUsuarioDestino,txtCantidad,txtCantidadDecimal,txtPassword,txtConfirmarPassword,txtComentario, userId, userAlias);
+            queryData("USP_VBC_VALIDATE_PASSWORD", argumentos, wallet2.validatePassword);
         }
     }, false);
     
     //Eventos para responder a tecla enter del teclado
     txtUsuarioDestino.addEventListener('keypress', function(event) {
         if (event.which === 13) {
-            txtCantidad.focus();
-            cordova.plugins.Keyboard.show();
+            if (getOS() === 1) {
+                txtCantidad.focus();
+                cordova.plugins.Keyboard.show();
+            }
+            else if (getOS() === 2) {
+                txtCantidad.focus();
+            }
+            else if (getOS() === 3) {
+                txtCantidad.focus();
+            };
         }
         var code = (event.which) ? event.which : event.keyCode;
         if(code === 8)

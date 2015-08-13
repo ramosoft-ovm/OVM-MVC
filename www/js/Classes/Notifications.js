@@ -333,6 +333,6 @@ CreateNotification.prototype.sendNotificationSuccess = function(){
 }
 
 
-var notification = new CreateNotification(ruta, mensaje, session_code, platform, user_alias, current_period, that.txtUsuarioDestino.value, that.userId, that.txtCantidad.value, that.txtCantidadDecimal.value, that.txtComercioDestino.value);
+/*var notification = new CreateNotification(ruta, mensaje, session_code, platform, user_alias, current_period, that.txtUsuarioDestino.value, that.userId, that.txtCantidad.value, that.txtCantidadDecimal.value, that.txtComercioDestino.value);
 
-            notification.sendNotificationSuccess();
+            notification.sendNotificationSuccess();*/

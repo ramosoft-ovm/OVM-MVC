@@ -168,9 +168,6 @@ Notifications.prototype.hideAjax = function(){
 //=====================================================================================================================================//
 
 
-
-
-
 //====================//
 //CONSTRUCTOR DE CLASE 2//
 //====================//
@@ -245,3 +242,97 @@ NotificationsDetails.prototype.hideAjax = function(){
     $('#mascaraAJAX').fadeOut(300);
     $('#mascaraAJAX').html(''); 		
 }
+
+
+
+
+//=====================================================================================================================================//
+//=====================================================================================================================================//
+//===================================================INICIA CLASE CREATENOTIFICATION===================================================//
+//=====================================================================================================================================//
+//=====================================================================================================================================//
+
+
+//====================//
+//CONSTRUCTOR DE CLASE 3//
+//====================//
+function CreateNotification(ruta, mensaje, session_code, platform, user_alias, current_period, receiver_user_id, sender_user_id, cantidad, cantidadDecimal, destinationCommerce){
+    that = this;
+    //Parámetros
+    that.ruta = ruta;
+    that.mensaje = mensaje;
+    that.session_code = session_code;
+    that.platform = platform;
+    that.user_alias = user_alias;
+    that.current_period = current_period;
+    that.counter = 0;
+    that.cantidad = cantidad;
+    that.cantidadDecimal = cantidadDecimal;
+    that.destinationCommerce = destinationCommerce;
+
+    that.parametros = {
+        "regId" : session_code,
+        "mensaje" : mensaje,
+        "plataforma" : platform,
+        "receiver_user_id" : receiver_user_id,
+        "sender_user_id" : sender_user_id,
+        "period_id" : current_period,
+        "counter" : counter
+    }
+}
+//============================//
+//TERMINA CONSTRUCTOR DE CLASE 3//
+//============================//
+
+CreateNotification.prototype.sendNotificationFailed = function(){
+    $.ajax({
+        url: that.ruta,
+        type: 'GET',
+        data: that.parametros,
+        success: function(response){
+            console.log('Exito '+response);
+            if(response == 2){
+                alert("El Usuario # "+ that.receiver_user_id +" no ha sido notificado debido a que no cuenta con una Sesión Móvil iniciada. Una vez que inicie Sesión, el Usuario # "+ that.receiver_user_id +", podrá visualizar éste mensaje en su Historial de Notificaciones");
+            }
+            //Redirecciona a welcome para ver su nuevo saldo
+            location.href = 'welcome.html';
+        },
+        error: function(response){
+            console.log('Error '+ response);
+            alert('Ha ocurrido un error en el almacenamiento de los datos al Historial de Notificaciones');
+            //Redirecciona a welcome para ver su nuevo saldo
+            location.href = 'welcome.html';
+        }
+    }); 
+}
+
+CreateNotification.prototype.sendNotificationSuccess = function(){
+    $.ajax({
+        url: that.ruta,
+        type: 'GET',
+        data: that.parametros,
+        success: function(response){
+            console.log('Exito '+response);
+            if(response == 1){
+                alert('El Usuario '+ that.user_alias +' ha sido notificado de la Transferencia por $ '+ parseFloat((that.cantidad+'.'+that.cantidadDecimal)).toFixed(2) +' a su Monedero Electronico de '+ that.destinationCommerce);                                                      
+
+            }else{
+                alert('Ha fallado el envío de la Notificación al Usuario '+ that.user_alias);
+            }
+            //Redirecciona a welcome para ver su nuevo saldo
+            location.href = 'welcome.html';
+        },
+        error: function(response){
+            console.log('Error '+ response);
+            alert('Ha ocurrido un error en el envío de la Notificación');
+
+            //Redirecciona a welcome para ver su nuevo saldo
+            location.href = 'welcome.html';
+        }
+    });    
+}
+
+
+var notification = new CreateNotification(ruta, mensaje, session_code, platform, user_alias, current_period, that.txtUsuarioDestino.value, that.userId, that.txtCantidad.value, that.txtCantidadDecimal.value, that.txtComercioDestino.value);
+
+            notification.sendNotificationSuccess();

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     //Variables glogales
     var userId = localStorage.getItem("userIdLocal");    
-    userId = '12';
+    //userId = '12';
     var userAlias = localStorage.getItem("usernameLocal");
     //---------------------------
     var cmbComercio = document.getElementById('cmb_comercio');

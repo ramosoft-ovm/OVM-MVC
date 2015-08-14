@@ -171,6 +171,11 @@ Wallet.prototype.getSessionCodes = function(dataSet){
     var counter = 0;
     //VALIDAMOS SI EL USUARIO TIENE DISPOSITIVOS REGISTRADOS EN DONDE RECIBA LA NOTIFICACIÓN
     if(typeof(rec) == 'undefined'){
+
+        /*var notification = new CreateNotification(ruta, mensaje, session_code, platform, counter, user_alias, current_period, that.txtUsuarioDestino.value, that.userId, that.txtCantidad.value, that.txtCantidadDecimal.value, that.txtComercioDestino.value);
+
+        notification.sendNotificationFailed();*/
+
         var parametros = {
             "regId" : session_code,
             "mensaje" : mensaje,
@@ -187,7 +192,7 @@ Wallet.prototype.getSessionCodes = function(dataSet){
             success: function(response){
                 console.log('Exito '+response);
                 if(response == 2){
-                    alert("El Usuario # "+ that.txtUsuarioDestino.value +" no ha sido notificado debido a que no cuenta con una Sesión Móvil iniciada. Una vez que inicie Sesión, el Usuario # "+ txtUsuarioDestino.value +", podrá visualizar éste mensaje en su Historial de Notificaciones");                                                                                                            
+                    alert("El Usuario # "+ that.txtUsuarioDestino.value +" no ha sido notificado debido a que no cuenta con una Sesión Móvil iniciada. Una vez que inicie Sesión, el Usuario # "+ that.txtUsuarioDestino.value +", podrá visualizar éste mensaje en su Historial de Notificaciones");                                                                                                            
                 }
                 //Redirecciona a welcome para ver su nuevo saldo
                 location.href = 'welcome.html';
@@ -199,12 +204,9 @@ Wallet.prototype.getSessionCodes = function(dataSet){
                 location.href = 'welcome.html';
             }
         });
-
-
-        /*alert("El Usuario # "+ txtUsuarioDestino.value +" no ha sido notificado debido a que no cuenta con una Sesión Móvil iniciada. Una vez que inicie Sesión, el Usuario # "+ txtUsuarioDestino.value +", podrá visualizar éste mensaje en su Historial de Notificaciones");
-        //Redirecciona a welcome para ver su nuevo saldo
-         location.href = 'welcome.html';*/
-    }else{                                            
+    }else{  
+        //Bandera para controlar mensaje de envío
+        var flag = true;                                          
         for(var idx = 0; idx < dataSet.length; idx++){
             rec = dataSet[idx];
             session_code = rec['sessionCode'];
@@ -221,6 +223,10 @@ Wallet.prototype.getSessionCodes = function(dataSet){
                 platform = 3;
             }
 
+            /*window["notification"+idx] = new CreateNotification(ruta, mensaje, session_code, platform, counter, user_alias, current_period, that.txtUsuarioDestino.value, that.userId, that.txtCantidad.value, that.txtCantidadDecimal.value, that.txtComercioDestino.value);
+
+            window["notification"+idx].sendNotificationSuccess();*/
+
             var parametros = {
                 "regId" : session_code,
                 "mensaje" : mensaje,
@@ -233,12 +239,14 @@ Wallet.prototype.getSessionCodes = function(dataSet){
             $.ajax({
                 url: ruta,
                 type: 'GET',
-                data: parametros,
-                success: function(response){
-                    console.log('Exito '+response);
-                    if(response == 1){
-                        alert('El Usuario '+ user_alias +' ha sido notificado de la Transferencia por $ '+ parseFloat((that.txtCantidad.value+'.'+that.txtCantidadDecimal.value)).toFixed(2) +' a su Monedero Electronico de '+ that.txtComercioDestino.value);                                                      
-
+                data: parametros, 
+                success: function(response){                    
+                    console.log('Exito '+response);       console.log(flag);
+                    if(response == 1){ 
+                        if(flag){
+                            flag = false;
+                            alert('El Usuario '+ user_alias +' ha sido notificado de la Transferencia por $ '+ parseFloat((that.txtCantidad.value+'.'+that.txtCantidadDecimal.value)).toFixed(2) +' a su Monedero Electronico de '+ that.txtComercioDestino.value);
+                        }                           
                     }else{
                         alert('Ha fallado el envío de la Notificación al Usuario '+ user_alias);
                     }

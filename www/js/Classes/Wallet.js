@@ -62,17 +62,7 @@ Wallet.prototype.tradeDestinationCharge = function(argument){
     value = value.substring(0, value.indexOf('(')-1);
     that.txtComercioDestino.value = value;
     event.target.blur();
-    
-    if (getOS() === 1) {
-        that.txtUsuarioDestino.focus();
-        cordova.plugins.Keyboard.show();
-    }
-    else if (getOS === 2) {
-        that.txtUsuarioDestino.focus();
-    }
-    else if (getOS === 3) {
-        that.txtUsuarioDestino.focus();
-    };
+    that.showKeyboard(that.txtUsuarioDestino);
 };
 //=========================================//
 //---Termina carga de usuario destino------//
@@ -275,16 +265,7 @@ Wallet.prototype.getSessionCodes = function(dataSet){
 //==============================//
 Wallet.prototype.emptyField = function(field){
 	if (field.value === 0 || field.value === '') {
-		if (getOS() === 1) {
-			field.focus();
-			cordova.plugins.Keyboard.show();
-		}
-		else if (getOS() === 2) {
-			field.focus();
-		}
-		else if (getOS() === 3) {
-			field.focus();
-		};
+		that.showKeyboard(field);
 		return false;
 	}
 	else {
@@ -298,16 +279,7 @@ Wallet.prototype.equalField = function(field1, field2){
 		campo2 = field2.value;
 	};
 	if (field1.value !== campo2) {
-        if (getOS() === 1) {
-            field1.focus();
-            cordova.plugins.Keyboard.show();
-        }
-        else if (getOS() === 2) {
-            field1.focus();
-        }
-        else if (getOS() === 3) {
-            field1.focus();
-        };
+        that.showKeyboard(field1);
         field1.value  = '';
         //Al ser falso, si el campo 2 es objeto de formulario lo limpia
         if (field2.value) {
@@ -322,3 +294,19 @@ Wallet.prototype.equalField = function(field1, field2){
 //==============================//
 //---Termina Validaciones------//
 //============================//
+
+Wallet.prototype.showKeyboard = function(field) {
+    if (typeof field === 'undefined') {
+        cordova.plugins.Keyboard.show();
+    }
+    else if (getOS() === 1) {
+        field.focus();
+        cordova.plugins.Keyboard.show();
+    }
+    else if (getOS() === 2) {
+        field.focus();
+    }
+    else if (getOS() === 3) {
+        field.focus();
+    };
+};

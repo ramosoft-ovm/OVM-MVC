@@ -256,7 +256,7 @@ NotificationsDetails.prototype.hideAjax = function(){
 //====================//
 //CONSTRUCTOR DE CLASE 3//
 //====================//
-function CreateNotification(ruta, mensaje, session_code, platform, user_alias, current_period, receiver_user_id, sender_user_id, cantidad, cantidadDecimal, destinationCommerce){
+function CreateNotification(ruta, mensaje, session_code, platform, counter, user_alias, current_period, receiver_user_id, sender_user_id, cantidad, cantidadDecimal, destinationCommerce){
     that = this;
     //Parámetros
     that.ruta = ruta;
@@ -265,7 +265,9 @@ function CreateNotification(ruta, mensaje, session_code, platform, user_alias, c
     that.platform = platform;
     that.user_alias = user_alias;
     that.current_period = current_period;
-    that.counter = 0;
+    that.counter = counter;
+    that.receiver_user_id = receiver_user_id;
+    that.sender_user_id = sender_user_id;
     that.cantidad = cantidad;
     that.cantidadDecimal = cantidadDecimal;
     that.destinationCommerce = destinationCommerce;

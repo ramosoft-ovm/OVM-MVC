@@ -34,10 +34,10 @@
                     <table>
                          <thead>
                            <tr>
-                            <th colspan="2"><span class="icon-user"></span> Información Personal</th>
+                            <th colspan="2"><span class="icon-user"></span> Información General</th>
                            </tr>
                            <tr>
-                            <td colspan="2">Información General</td>
+                            <td colspan="2">Información Personal</td>
                            </tr>
                          </thead>
                          <tbody id="generalInfo">
@@ -96,6 +96,11 @@
                                  <th><p>Tipo de Miembro:</p></th>
                                  <td><p></p></td>
                             </tr>
+                            <tr style="height:70px">
+                                <td colspan="2" style="text-align:center">
+                                    <a href="#" id="btnEdit" class="btn"><span class="icon-pencil icon"></span> Editar</a>
+                                </td>
+                            </tr>
                          </tbody>
                    </table>
             
@@ -146,7 +151,7 @@
 
             //EXTRACCIÓN DE USERID QUE EJECUTA LA APLICACIÓN//
             var userId = localStorage.getItem('userIdLocal');
-            //var userId = 12;
+            var userId = 11;
 
             //INSTANCIA A LA CLASE CONTROL PANEL//
             var profile = new Profile();

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximun-scale=no">
+
+        <link rel="stylesheet" href="css/styleProfile.css" />
+        <link rel="stylesheet" type="text/css" href="css/styleMenu.css">
+        <link rel="stylesheet" type="text/css" href="fonts/fonts.css">               
+
+        <title>Editar Perfil</title>
+    
+        <style>.required{color:#B24846;}</style>
+    </head>
+    <body>
+        <!-- Comienza página Welcome -->
+        <div>
+            
+            <!-- Encabezado -->
+            <div class="encabezado">
+                <h2><span class="icon-pencil"></span> Edición de Perfil</h2>
+                <div class="menu_bar">
+                    <a href="#" class="bt-menu" id="showMenu"><span class="icon-menu"></span> Menu</a>
+                </div>
+            </div>
+
+            <!-- Contenido de la página -->
+            <div id="contenedor">
+                <div id="clear">
+                    <!--<table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-btn-text="Ocultar..." data-column-popup-theme="a">-->
+                    <table>
+                         <thead>
+                           <tr>
+                            <th colspan="3">
+                                <p style="margin-bottom:5px;;"><span class="icon-user"></span> Información General</p>
+                                <p style="font-size:.6em;margin-top:10px;">* Los campos Marcados con " <span class="icon-point-right"></span> " son obligatorios.</p>
+                            </th>
+                            <!--<th colspan="3" style="font-size:.8em;">* Los campos Marcados con " <span class="icon-point-right"></span> " son obligatorios</th>-->
+                           </tr>                           
+                           <tr>
+                            <td colspan="3">Información Personal</td>
+                           </tr>
+                         </thead>
+                         <tbody id="generalInfo">
+                           <tr>
+                             <th><p>Fecha de Registro:</p></th>
+                             <td></td>
+                             <td><p></p></td>
+                           </tr>
+                           <tr>
+                             <th><p>Patrocinador:</p></th>
+                             <td></td>
+                             <td><p></p></td>                                                     
+                           </tr>
+                           <tr>
+                             <th><p>Nombre:</p></th>
+                             <td>
+                                 <a style="margin-top:5px;" href="#" class="required"><span class="icon-point-right"></span></a>
+                                 <a style="margin-top:5px;" href="#" class="required"><span class="icon-point-right"></span></a>
+                                 <a style="margin-top:5px;" href="#" class="required"><span class="icon-point-right"></span></a>
+                             </td>
+                             <td>
+                                <input type="text" placeholder="Nombre(s)" id="txtNombre"><br>
+                                <input type="text" placeholder="Apellido Paterno" id="txtApePat"><br>
+                                <input type="text" placeholder="Apellido Materno" id="txtApeMat"><br>
+                             </td>
+                           </tr>
+                           <tr>
+                             <th><p>Alias:</p></th>
+                             <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
+                             <td><input type="text" id="txtAlias"></td>
+                           </tr>
+                           <tr>
+                             <th><p>Fecha de Nacimiento:</p></th>
+                             <td><br>
+                                 <a href="#" class="required"><span class="icon-point-right"></span></a><br><br>
+                                 <a href="#" class="required"><span class="icon-point-right"></span></a><br><br>
+                                 <a href="#" class="required"><span class="icon-point-right"></span></a>
+                             </td>
+                             <td>                                
+                                <select class="select" name="dia" id="dia">
+                                    <option value="0">DIA</option>
+                                </select>
+                                <select class="select" name="mes" id="mes">
+                                    <option value="0">MES</option>
+                                </select>
+                                <select class="select" name="ano" id="ano">
+                                    <option value="0">AÑO</option>
+                                </select>                                
+                             </td>
+                           </tr>
+                           <tr>
+                               <th><p>Lugar de Nacimiento:</p></th>
+                               <td></td>
+                               <td><input type="text" id="txtNacimiento"></td>
+                           </tr>
+                           <tr>
+                               <th>Sexo:</th>
+                               <td></td>
+                               <td>
+                                    <select class="select" name="sexo" id="sexo">
+                                        <option value="1">Masculino</option>
+                                        <option value="0">Femenino</option>
+                                    </select>
+                               </td>
+                           </tr>
+                           <tr>
+                             <th><p>Idioma:</p></th>
+                             <td></td>
+                             <td>
+                                 <select class="select" name="language" id="language">
+                                     <option value="1">ESPAÑOL</option>
+                                     <option value="2">ENGLISH</option>
+                                 </select>
+                             </td>
+                           </tr>
+                           <tr>
+                             <th><p>Contraseña:</p></th>
+                             <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
+                             <td><input type="password" id="txtPassword"></td>
+                           </tr>
+                           <tr>
+                             <th><p>Confirmar Contraseña:</p></th>
+                             <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
+                             <td><input type="password" id="txtConfirmPassword"></td>
+                           </tr>                                                      
+                         </tbody>
+                         <thead>
+                             <tr>
+                                 <td colspan="3">Información de Contacto</td>
+                             </tr>
+                         </thead>
+                         <tbody id="contactInfo">
+                            <tr>
+                                 <th><p>Teléfono:</p></th>
+                                 <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
+                                 <td><input type="number" id="txtTelefono"></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Celular:</p></th>
+                                 <td></td>
+                                 <td><input type="number" id="txtCelular"></td>
+                            </tr>
+                            <tr>
+                                 <th><p>Otro Teléfono(especificar):</p></th>
+                                 <td></td>
+                                 <td><input type="number" id="txtOtroTelefono"></td>
+                            </tr>
+                            <tr>
+                                 <th><p>E-mail:</p></th>
+                                 <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
+                                 <td><input type="email" id="txtEmail"></td>
+                           </tr>
+                            <tr>
+                                 <th><p>Tipo de Miembro:</p></th>
+                                 <td></td>
+                                 <td><p></p></td>
+                            </tr>
+                            <tr style="height:70px">
+                                <td colspan="3" style="text-align:center">
+                                    <a href="#" id="btnEdit" class="btn"><span class="icon-pencil icon"></span> Guardar Cambios</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <input type="hidden" id="txtRFC"><!--RFC usuario oculto-->
+                                    <input type="hidden" id="txtNumIFE"><!--Num IFE usuario oculto-->
+                                    <input type="hidden" id="txtCurp"><!--Curp usuario oculto-->
+                                    <input type="hidden" id="txtSkype"><!--Skype usuario oculto-->
+                                    <input type="hidden" id="txtNomBene"><!--Nombre Benerificiario usuario oculto-->
+                                    <input type="hidden" id="txtApePatBene"><!--Apellido Paterno Benerificiario usuario oculto-->
+                                    <input type="hidden" id="txtApeMatBene"><!--Apellido Materno Benerificiario usuario oculto-->
+                                    <input type="hidden" id="txtParentescoBene"><!--Parentesco Benerificiario usuario oculto-->
+                                    <input type="hidden" id="txtTelefonoBene"><!--Teléfono Benerificiario usuario oculto-->
+                                    <input type="hidden" id="txtBanco"><!--Banco usuario oculto-->
+                                    <input type="hidden" id="txtClabe"><!--Clabe Interbancaria usuario oculto-->
+                                </td>
+                            </tr>
+                         </tbody>
+                   </table>
+            
+                </div>
+            </div>        
+
+            <!-- Pié de página -->
+            <!--<div data-role="footer" style="text-align:center" data-theme="a" data-position="fixed">
+                Copyright © 2015 RM International Services S.A. de C.V.
+            </div>-->
+
+        </div>
+
+    <div id="deviceready" style="display: none">
+        <p class="event listening">Connecting to Device</p>
+        <p class="event received">Device is Ready</p>
+    </div>
+    
+    <!-- ********  MENÚ  ******** -->
+    <header>
+        <nav id="menu"></nav>
+    </header>
+
+    <!--Mascara que se muestra cuando se abre menú-->
+    <section id="mascara"></section>
+
+    <!--Macara que se muestra  mientras se cargan todos los elementos de la página-->
+    <div id="mascaraAJAX"></div>
+
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/App.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Profile.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/Classes/Menu.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/connect.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/lib.js"></script>
+    <script type="text/javascript"> 
+            //El registro al servicio de google lo hacemos automáticamente
+            var app = new App();
+            //Instancia a la clase Menu
+            var menu = new Menu();
+            //Carga el Menú
+            menu.loadMenu();
+
+            //Carga imagen ajax
+            //showWaitLoader('mascaraAJAX');
+            //$('#mascaraAJAX').fadeIn(300);
+
+            //EXTRACCIÓN DE USERID QUE EJECUTA LA APLICACIÓN//
+            var userId = localStorage.getItem('userIdLocal');
+            var userId = 36;
+
+            //VARIABLES DE CAMPOS VISIBLES
+            var txtNombre = document.getElementById('txtNombre');
+            var txtApePat = document.getElementById('txtApePat');
+            var txtApeMat = document.getElementById('txtApeMat');
+            var txtAlias = document.getElementById('txtAlias');
+            var cmbDia = document.getElementById('dia');
+            var cmbMes = document.getElementById('mes');
+            var cmbAno = document.getElementById('ano');
+            var txtNacimiento = document.getElementById('txtNacimiento');
+            var cmbSexo = document.getElementById('sexo');
+            var cmbLanguage = document.getElementById('language');
+            var txtPassword = document.getElementById('txtPassword');
+            var txtConfirmPassword = document.getElementById('txtConfirmPassword');
+            var txtTelefono = document.getElementById('txtTelefono');
+            var txtCelular = document.getElementById('txtCelular');
+            var txtOtroTelefono = document.getElementById('txtOtroTelefono');
+            var txtEmail = document.getElementById('txtEmail');
+            //VARIBALES DE CAMPOS OCULTOS
+            var txtRFC = document.getElementById('txtRFC');
+            var txtNumIFE = document.getElementById('txtNumIFE');
+            var txtCurp = document.getElementById('txtCurp');
+            var txtSkype = document.getElementById('txtSkype');
+            var txtNomBene = document.getElementById('txtNomBene');
+            var txtApePatBene = document.getElementById('txtApePatBene');
+            var txtApeMatBene = document.getElementById('txtApeMatBene');
+            var txtParentescoBene = document.getElementById('txtParentescoBene');
+            var txtTelefonoBene = document.getElementById('txtTelefonoBene');
+            var txtBanco = document.getElementById('txtBanco');
+            var txtClabe = document.getElementById('txtClabe');
+
+            //INSTANCIA A LA CLASE PROFILE EDIT//
+            var profileEdit = new ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, cmbMes, cmbAno, txtNacimiento, cmbSexo, cmbLanguage, txtPassword, txtConfirmPassword, txtTelefono, txtCelular, txtOtroTelefono, txtEmail, txtRFC, txtNumIFE, txtCurp, txtSkype, txtNomBene, txtApePatBene, txtApeMatBene, txtParentescoBene, txtTelefonoBene, txtBanco, txtClabe);
+
+            //EVENTO DE BOTÓN GUARDAR CAMBIOS
+            var btnEdit = document.getElementById('btnEdit');
+            btnEdit.addEventListener('click', function(event){
+                event.preventDefault();
+                profileEdit.saveChanges();
+            });
+    </script>
+    </body>
+</html>

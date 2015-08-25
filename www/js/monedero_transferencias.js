@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else if (txtUsuarioDestino.value === userId) {
             alert('No se pueden realizar transferencias a si mismo');
             txtUsuarioDestino.value = '';
-            txtUsuarioDestino.focus();
+            wallet.showKeyboard(txtUsuarioDestino);
             //Oculta imágen AJAX
             wallet.hideAjax();
         }
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else if ((txtCantidad.value+'.'+txtCantidadDecimal.value) > puntos) {
             alert('No puede transferir más puntos de los que tiene');
             txtCantidad.value = "";
-            txtCantidad.focus();
+            wallet.showKeyboard(txtCantidad);
             //Oculta imágen AJAX
             wallet.hideAjax();
         }
@@ -105,8 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
     txtUsuarioDestino.addEventListener('keypress', function(event) {
         if (event.which === 13) {
             if (getOS() === 1) {
-                txtCantidad.focus();
-                cordova.plugins.Keyboard.show();
+                wallet.showKeyboard(txtCantidad);
             }
             else if (getOS() === 2) {
                 txtCantidad.focus();
@@ -132,8 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, false);
     txtCantidad.addEventListener('keypress', function(event) {
         if (event.which === 13) {
-            txtPassword.focus();
-            cordova.plugins.Keyboard.show();
+            wallet.showKeyboard(txtPassword);
         };
         var code = (event.which) ? event.which : event.keyCode;
         if(code === 8)
@@ -157,8 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('dentro');
         }
         if (event.which === 13) {
-            txtPassword.focus();
-            cordova.plugins.Keyboard.show();
+            wallet.showKeyboard(txtPassword);
         };
         var code = (event.which) ? event.which : event.keyCode;
         if(code === 8)
@@ -178,14 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
     },false);
     txtPassword.addEventListener('keypress', function(event) {
         if (event.which === 13) {
-            txtConfirmarPassword.focus();
-            cordova.plugins.Keyboard.show();
+            wallet.showKeyboard(txtConfirmarPassword);
         };
     }, false);
     txtConfirmarPassword.addEventListener('keypress', function(event) {
         if (event.which === 13) {
-            txtComentario.focus();
-            cordova.plugins.Keyboard.show();
+            wallet.showKeyboard(txtComentario);
         };
     },false);
     txtComentario.addEventListener('keypress', function(event) {

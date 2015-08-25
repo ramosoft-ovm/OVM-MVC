@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     //Variables globales
     var userId = localStorage.getItem('userIdLocal');
-    //userId = 12;
+    userId = 12;
     //---------------------------------------------
     var cmbPeriodos = document.getElementById('cmb_periodos');
     var lblTitulo = document.getElementById('lbl_titulo');

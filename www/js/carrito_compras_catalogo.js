@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     userId = 12;
     var get = getByURL()['categoria'];
     //---------------------
-    catalog = new CatalogCart(cmbCategoria, divCatalogos, get);
+    var ajax =  new Cart();
+    catalog = new CatalogCart(cmbCategoria, divCatalogos, get, ajax);
 
     //Carga imagen ajax para carrito compras catalogo
-    catalog.showAjax();
+    ajax.showAjax();
 
     /////////////////////////////////////////////////
     /******** Llena combobox de categorías *********/
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         egoria = 1
     }
     var argumentos = [
+    
     'integer', '1', //Operator
     'integer', egoria,//categoria
     'integer', userId,//Usuario
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     cmbCategoria.addEventListener('change', function(event){
         event.target.blur();
         //Carga imagen ajax
-        catalog.showAjax();
+        ajax.showAjax();
 
         argumentos[3] = cmbCategoria.value;
         queryData('USP_VBC_GET_ITEM_CATALOG', argumentos, catalog.wishlist, 2);
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     txtBuscador.addEventListener('keyup', function(event){
         catalog.search(event, txtBuscador);
     },false);
-});
+}, false);
 
 //Evento de botón comprar
 function compra(event) {

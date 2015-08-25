@@ -1,28 +1,11 @@
-function CatalogCart(cmbCategoria, divCatalogos, getCategoria)
+function CatalogCart(cmbCategoria, divCatalogos, getCategoria, ajax)
 {
 	that = this;
-	that.cmbCategoria = cmbCategoria;
-	that.divCatalogos = divCatalogos;
-    that.getCategoria = getCategoria;
+	this.cmbCategoria = cmbCategoria;
+	this.divCatalogos = divCatalogos;
+    this.getCategoria = getCategoria;
+    this.ajax = ajax;
 }
-
-//=============================//
-//---------Mascara AJAX-------//
-//===========================//
-CatalogCart.prototype.showAjax = function() {
-	//Carga imagen ajax para carrito compras catalogo
-    showWaitLoader('mascaraAJAX');
-    $('#mascaraAJAX').fadeIn(300);
-};
-
-CatalogCart.prototype.hideAjax = function() {
-	//Oculta imágen AJAX
-    $('#mascaraAJAX').fadeOut(300);
-    $('#mascaraAJAX').html('');
-};
-//=============================//
-//---Termina Mascara AJAX-----//
-//===========================//
 
 //==================================//
 //----Carga combobox de catalogo----//
@@ -107,7 +90,7 @@ CatalogCart.prototype.wishlist = function(dataSet) {
         comprar[i].addEventListener('click', compra, false);
     }
     //Oculta imágen AJAX
-    that.hideAjax();
+    that.ajax.hideAjax();
 };
 //=========================================//
 //------ Termina Carga de productos--------//
@@ -220,4 +203,28 @@ CatalogCart.prototype.search = function(event, txtBuscador){
 };
 //====================================//
 //------Termina Buscador Interno------//
+//====================================//
+
+//=========================================//
+//------Muestra detalles de producto------//
+//=======================================//
+CatalogCart.prototype.details = function(dataSet) {
+    var rec = dataSet[0];
+    var img = '';
+    img = rec['itemPicture']?'<img src="' +domain+ '/image/' +rec['itemPicture']+ '" />':'<p>Imagen no disponible</p>';
+    set('codigo',rec['itemCode']);
+    set('puntos',rec['bv']);
+    set('vconsumible',rec['cv']);
+    set('precio','$'+getByURL()['price']);
+    set('descripcion',rec['itemName']);
+    set('imagen', img);
+
+    function set(id, html) {
+        document.getElementById(id).innerHTML = html;
+    }
+    //oculta imagen ajax
+    that.ajax.hideAjax();
+};
+//======================================//
+//------Termina detalles de producto---//
 //====================================//

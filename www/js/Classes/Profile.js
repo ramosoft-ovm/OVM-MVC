@@ -78,7 +78,7 @@ Profile.prototype.hideAjax = function(){
 //======================//
 //CONSTRUCTOR DE CLASE 2//
 //======================//
-function ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, cmbMes, cmbAno, txtNacimiento, cmbSexo, cmbLanguage, txtPassword, txtConfirmPassword, txtTelefono, txtCelular, txtOtroTelefono, txtEmail, txtRFC, txtNumIFE, txtCurp, txtSkype, txtNomBene, txtApePatBene, txtApeMatBene, txtParentescoBene, txtTelefonoBene, txtBanco, txtClabe){
+function ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, cmbMes, cmbAno, txtNacimiento, cmbSexo, cmbLanguage, txtPassword, txtConfirmPassword, txtTelefono, txtCelular, txtOtroTelefono, txtEmail, txtRFC, txtNumIFE, txtCurp, txtSkype, txtNomBene, txtApePatBene, txtApeMatBene, txtParentescoBene, txtTelefonoBene, txtBanco, txtClabe, txtCompany, txtFax, txtPager, txtPaisFiscal, txtCalleFiscal, txtColoniaFiscal, txtCiudadFiscal, txtEstadoFiscal, txtCpFiscal, txtPaisPedidos, txtCallePedidos, txtColoniaPedidos, txtCiudadPedidos, txtEstadoPedidos, txtCpPedidos, txtNombrePedidos, txtIsOfficeComplete, txtUserTypeId, txtNumContrato, txtSapCode, txtNumExtFiscal, txtNumIntFiscal, txtModalType, txtNumExtPedidos, txtNumIntPedidos, txtFiscalActivity, txtWarehouseId){
     that = this;
     //Parámetros
     that.userId = userId;
@@ -98,6 +98,7 @@ function ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, 
     that.txtCelular = txtCelular;
     that.txtOtroTelefono = txtOtroTelefono;
     that.txtEmail = txtEmail;
+    //Parámetros de campos ocultos
     that.txtRFC = txtRFC;
     that.txtNumIFE = txtNumIFE;
     that.txtCurp = txtCurp;
@@ -109,12 +110,42 @@ function ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, 
     that.txtTelefonoBene = txtTelefonoBene;
     that.txtBanco = txtBanco;
     that.txtClabe = txtClabe;
+    that.txtCompany = txtCompany;
+    that.txtFax = txtFax;
+    that.txtPager = txtPager;
+    that.txtPaisFiscal = txtPaisFiscal;
+    that.txtCalleFiscal = txtCalleFiscal;
+    that.txtColoniaFiscal = txtColoniaFiscal;
+    that.txtCiudadFiscal = txtCiudadFiscal;
+    that.txtEstadoFiscal = txtEstadoFiscal;
+    that.txtCpFiscal = txtCpFiscal;
+    that.txtPaisPedidos = txtPaisPedidos;
+    that.txtCallePedidos = txtCallePedidos;
+    that.txtColoniaPedidos = txtColoniaPedidos;
+    that.txtCiudadPedidos = txtCiudadPedidos;
+    that.txtEstadoPedidos = txtEstadoPedidos;
+    that.txtCpPedidos = txtCpPedidos;
+    that.txtNombrePedidos = txtNombrePedidos;
+    that.txtIsOfficeComplete = txtIsOfficeComplete;
+    that.txtUserTypeId = txtUserTypeId;
+    that.txtNumContrato = txtNumContrato;
+    that.txtSapCode = txtSapCode;
+    that.txtNumExtFiscal = txtNumExtFiscal;
+    that.txtNumIntFiscal = txtNumIntFiscal;
+    that.txtModalType = txtModalType;
+    that.txtNumExtPedidos = txtNumExtPedidos;
+    that.txtNumIntPedidos = txtNumIntPedidos;
+    that.txtFiscalActivity = txtFiscalActivity;
+    that.txtWarehouseId = txtWarehouseId;
     //Se cargan combos
     that.fillDay();
     that.fillMonth();
     that.fillYear();
+    //Bandera para disparar método hideAjax()
+    that.isProfileLoaded = 0;
     //Se inicializan queries
     queryData('USP_VBC_GET_USER_PROFILE_INFO', ['integer', that.userId], that.loadProfileInfo);
+    queryData('USP_VBC_GET_USER_PROFILE_DATA', ['integer', that.userId], that.loadProfileData);
 }
 //==============================//
 //TERMINA CONSTRUCTOR DE CLASE 2//
@@ -122,6 +153,7 @@ function ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, 
 
 ProfileEdit.prototype.loadProfileInfo = function(dataSet){
     var rec = dataSet[0];
+    //console.log(rec);
 
     $('table tbody#generalInfo tr:nth-child(1) td p').append(susbsDates(rec['dateCreated']));
     $('table tbody#generalInfo tr:nth-child(2) td p').append(rec['referralId']+ " " +rec['referralName']);
@@ -157,39 +189,54 @@ ProfileEdit.prototype.loadProfileInfo = function(dataSet){
     that.txtTelefonoBene.value = rec['beneficiaryPhone'];
     that.txtBanco.value = rec['bankName'];
     that.txtClabe.value = rec['accountNumber'];
+    that.txtCompany.value = rec['company'];
+    that.txtFax.value = rec['fax'];
+    that.txtPager.value = rec['pager'];
+    that.txtIsOfficeComplete.value = rec['isOfficeComplete']; 
+    that.txtUserTypeId.value = rec['userTypeId'];
+    that.txtNumContrato.value = rec['numContrato'];
+    that.txtSapCode.value = rec['sapCode'];
+    that.txtModalType.value = rec['modalType'];
+    that.txtFiscalActivity.value = rec['fiscalActivity'];
 
-    /*$('#txtNombre').val(rec['firstName']);
-    $('#txtApePat').val(rec['middleName']);
-    $('#txtApeMat').val(rec['lastName']);
-    $('#txtAlias').val(rec['alias']);
-    $('#dia').val(rec['birthDay']);
-    $('#mes').val(rec['birthMonth']);
-    $('#ano').val(rec['birthYear']);
-    $('#txtNacimiento').val(rec['birthPlace']);
-    $('#sexo').val(rec['isMale']);
-    $('#language').val(rec['languageId']);
-    $('#txtPassword').val(rec['password']);
-    $('#txtConfirmPassword').val(rec['password']);
-    $('#txtTelefono').val(rec['homePhone']);
-    $('#txtCelular').val(rec['cellPhone']);
-    $('#txtOtroTelefono').val(rec['workPhone']);
-    $('#txtEmail').val(rec['email']);*/
+    that.isProfileLoaded += 1;
+    if(that.isProfileLoaded == 2){
+        that.hideAjax();
+    }    
+}
 
-    
-    /*$('#txtRFC').val(rec['fiscalCode']);
-    $('#txtNumIFE').val(rec['ife']);
-    $('#txtCurp').val(rec['curp']);
-    $('#txtSkype').val(rec['skype']);
-    $('#txtNomBene').val(rec['firstNameBeneficiary']);
-    $('#txtApePatBene').val(rec['middleNameBeneficiary']);
-    $('#txtApeMatBene').val(rec['lastNameBeneficiary']);
-    $('#txtParentescoBene').val(rec['relationshipBeneficiary']);
-    $('#txtTelefonoBene').val(rec['beneficiaryPhone']);
-    $('#txtBanco').val(rec['bankName']);
-    $('#txtClabe').val(rec['accountNumber']);*/
+ProfileEdit.prototype.loadProfileData = function(dataSet){
+    var rec = dataSet[0];
+    //console.log(rec);
+
+    that.txtPaisFiscal.value = rec['mailingCountry'];
+    that.txtCalleFiscal.value = rec['mailingAddressLine1'];
+    that.txtColoniaFiscal.value = rec['mailingAddressLine2'];
+    that.txtCiudadFiscal.value = rec['mailingCity'];
+    that.txtEstadoFiscal.value = rec['mailingState'];
+    that.txtCpFiscal.value = rec['mailingPostalCode'];
+    that.txtNumExtFiscal.value = rec['addressNumExt'];
+    that.txtNumIntFiscal.value = rec['addressNumInt'];
+    that.txtPaisPedidos.value = rec['shippingCountryId'];
+    that.txtCallePedidos.value = rec['shippingAddressLine1'];
+    that.txtColoniaPedidos.value = rec['shippingAddressLine2'];
+    that.txtCiudadPedidos.value = rec['shippingCity'];
+    that.txtEstadoPedidos.value = rec['shippingState'];
+    that.txtCpPedidos.value = rec['shippingPostalCode'];
+    that.txtNumExtPedidos.value = rec['shippingAddressNumExt'];
+    that.txtNumIntPedidos.value = rec['shippingAddressNumInt'];
+    that.txtNombrePedidos.value = rec['shippingName'];
+    that.txtWarehouseId.value = rec['warehouseId'];
+
+    that.isProfileLoaded += 1;
+    if(that.isProfileLoaded == 2){
+        that.hideAjax();
+    } 
 }
 
 ProfileEdit.prototype.saveChanges = function(){
+    that.showAjax();
+
     if(that.validateEmptyField(that.txtNombre)){
         if(that.validateEmptyField(that.txtApePat)){
             if(that.validateEmptyField(that.txtApeMat)){
@@ -207,76 +254,190 @@ ProfileEdit.prototype.saveChanges = function(){
                                                            if(that.validatePhone(that.txtOtroTelefono)){
                                                                 if(that.validateEmptyField(that.txtEmail)){
                                                                     if(that.validateEmail(that.txtEmail)){
-                                                                        console.log('listo');
+                                                                        
+                                                                        //============================================================//
+                                                                        //Se crea arreglo con los datos necesarios para la inscripción//
+                                                                        //============================================================//
+                                                                        var argsUpdate = [
+                                                                        'integer', that.userId,//Número de usuario
+                                                                        'string', that.txtNombre.value+', '+that.txtApePat.value+' '+that.txtApeMat.value,//Nombre completo 
+                                                                        'string', that.txtNomBene.value+' '+that.txtApePatBene.value+' '+that.txtApeMatBene.value,//Coapplicant Name Local
+                                                                        'string', that.txtCompany.value,//Compañía
+                                                                        'string', that.txtTelefono.value,//Teléfono principal
+                                                                        'string', that.txtOtroTelefono.value,//Otro Teléfono
+                                                                        'string', that.txtFax.value,//Fax
+                                                                        'string', that.txtCelular.value,//Teléfono Celular
+                                                                        'string', that.txtPager.value,//Pager
+                                                                        'string', that.txtEmail.value,//Email
+                                                                        'string', that.txtPassword.value,//Contraseña
+                                                                        'string', that.txtPaisFiscal.value,//País Fiscal
+                                                                        'string', that.txtCalleFiscal.value,//Calle Fiscal
+                                                                        'string', that.txtColoniaFiscal.value,//Colonia Fiscal
+                                                                        'string', that.txtCiudadFiscal.value,//Ciudad Fiscal
+                                                                        'string', that.txtEstadoFiscal.value,//Estado Fiscal
+                                                                        'string', that.txtCpFiscal.value,//Código Postal Fiscal
+                                                                        'integer', 0,//Misma dirección para Pedidos
+                                                                        'string', that.txtPaisPedidos.value,//País Pedidos
+                                                                        'string', that.txtCallePedidos.value,//Calle Pedidos
+                                                                        'string', that.txtColoniaPedidos.value,//Colonia Pedidos
+                                                                        'string', that.txtCiudadPedidos.value,//Ciudad Pedidos
+                                                                        'string', that.txtEstadoPedidos.value,//Estado Pedidos
+                                                                        'string', that.txtCpPedidos.value,//Código Postal Pedidos
+                                                                        'integer', that.txtWarehouseId.value,//Id del Almacén
+                                                                        'string', that.txtRFC.value,//RFC 
+                                                                        'string', that.userId,//Operador
+                                                                        'integer', that.cmbLanguage.value,//Lenguaje
+                                                                        'string', that.txtAlias.value,//Alias
+                                                                        'string', that.txtNombrePedidos.value,//Nombre completo para envíos
+                                                                        'integer', that.txtIsOfficeComplete.value,//Oficina Completa
+                                                                        'integer', that.txtUserTypeId,//Id de Tipo de Usuario(Afiliado)
+                                                                        'string', that.txtNombre.value,//Nombre Afiliado
+                                                                        'string', that.txtApePat.value,//Apellido Paterno Afiliado
+                                                                        'string', that.txtApeMat.value,//Apellido Materno Afiliado
+                                                                        'string', that.txtNumContrato.value,//Número de Contrato
+                                                                        'string', that.txtBanco.value,//Banco
+                                                                        'string', that.txtClabe.value,//Clabe Interbancaria
+                                                                        'string', that.txtNumIFE.value,//Número de IFE
+                                                                        'string', that.txtCurp.value,//CURP
+                                                                        'string', that.txtNomBene.value,//Nombre Beneficiario
+                                                                        'string', that.txtApePatBene.value,//Apellido Paterno Beneficiario
+                                                                        'string', that.txtApeMatBene.value,//Apellido Materno Beneficiario
+                                                                        'integer',that.txtParentescoBene.value,//Relación con el Beneficiario
+                                                                        'integer', 0,//Is invoice
+                                                                        'string', that.txtTelefonoBene.value,//Teléfono de Beneficiario
+                                                                        'integer', that.cmbSexo.value,//Sexo
+                                                                        'string', that.txtNacimiento.value,//Lugar de Nacimiento
+                                                                        'string', that.txtSapCode.value,//SAP CODE
+                                                                        'string', that.txtNumExtFiscal.value,//Número exterior Fiscal
+                                                                        'string', that.txtNumIntFiscal.value,//Número Interior Fiscal
+                                                                        'integer', that.txtModalType.value,//Modal Type
+                                                                        'string', that.txtSkype.value,//Skype
+                                                                        'string', that.txtNumExtPedidos.value,//Número exterior Pedidos
+                                                                        'string', that.txtNumIntPedidos.value,//Número interior Pedidos
+                                                                        'date', that.cmbAno.value+'-'+that.cmbMes.value+'-'+that.cmbDia.value,//Fecha de Nacimiento
+                                                                        'string', that.txtFiscalActivity.value //Actividad Fiscal
+                                                                        ];
+                                                                        //===============================================//
+                                                                        //Termina creación de arreglo para la inscripción//
+                                                                        //===============================================//
+
+                                                                        queryData('USP_VBC_SET_USER_PROFILE', argsUpdate, that.confirmUpdate);
+                                                                        //app.showNotificactionVBC('Su información ha sido actualizada');
+                                                                        //alert('Información actualizada');
+                                                                        //location.href = 'profile.html';
                                                                         
                                                                     }else{
                                                                         //app.showNotificactionVBC("* EMAIL INVÁLIDO: El correo Electrónico debe contener un @ y un punto");
                                                                         console.log('emailInvalido');
+                                                                        that.hideAjax();
+                                                                        that.txtEmail.focus();
                                                                     }
                                                                 }else{
                                                                     //app.showNotificactionVBC('* El campo E-mail es Obligatorio');
                                                                     console.log('email');
+                                                                    that.hideAjax();
+                                                                    that.txtEmail.focus();
                                                                 }
                                                             }else{
                                                                 //app.showNotificactionVBC("* OTRO TELÉFONO INVÁLIDO: El Número de Teléfono debe contener solo dígitos");
                                                                 console.log('otroTeléfonoIvalido');
+                                                                that.hideAjax();
+                                                                that.txtOtroTelefono.focus();
                                                             } 
                                                         }else{
                                                             //app.showNotificactionVBC("* CELULAR INVÁLIDO: El Número de Celular debe contener solo dígitos");
                                                             console.log('celularInvalido');
+                                                            that.hideAjax();
+                                                            that.txtCelular.focus();
                                                         }    
                                                     }else{
                                                         //app.showNotificactionVBC("* TELÉFONO INVÁLIDO: El Número de Teléfono debe contener solo dígitos");
                                                         console.log('TeléfonoInvalido');
+                                                        that.hideAjax();
+                                                        that.txtTelefono.focus();
                                                     }
                                                 }else{
                                                     //app.showNotificactionVBC('* El campo Teléfono es Obligatorio');
                                                     console.log('telefono');
+                                                    that.hideAjax();
+                                                    that.txtTelefono.focus();
                                                 }
                                             }else{
                                                 //app.showNotificactionVBC('* CONFIRMACIÓN DE CONTRASEÑA INVÁLIDA: La contraseña no coincide con la confirmación');
                                                 console.log('passworsNoCoinciden');
+                                                that.hideAjax();
+                                                that.txtConfirmPassword.focus();
                                             }
                                         }else{
                                             //app.showNotificactionVBC('* CONTRASEÑA INVÁLIDA: La contraseña solo puede contener números y letras y no debe ser menor que 8 ni mayor que 12 caracteres');
                                             console.log('passwordInvalido');
+                                            that.hideAjax();
+                                            that.txtPassword.focus();
                                         }
                                     }else{
                                         //app.showNotificactionVBC('* El campo Contraseña es Obligatorio');
-                                        console.log('password');    
+                                        console.log('password');
+                                        that.hideAjax();
+                                        that.txtPassword.focus();  
                                     }
                                 }else{
                                     //app.showNotificactionVBC('* El campo Año es Obligatorio');
                                     console.log('año');
+                                    that.hideAjax();
+                                    that.cmbAno.focus();
                                 }
                             }else{
                                 //app.showNotificactionVBC('* El campo Mes es Obligatorio');
                                 console.log('mes');
+                                that.hideAjax();
+                                that.cmbMes.focus();
                             }
                         }else{
                             //app.showNotificactionVBC('* El campo Día es Obligatorio');
                             console.log('dia'); 
+                            that.hideAjax();
+                            that.cmbDia.focus();
                         }
                     }else{
                         //app.showNotificactionVBC('* ALIAS INVÁLIDO: El Alias es muy largo o contiene caracteres no válidos');
-                        console.log('aliasInvalido');                         
+                        console.log('aliasInvalido');
+                        that.hideAjax();
+                        that.txtAlias.focus();                         
                     }             
                 }else{
                     //app.showNotificactionVBC('* El campo Alias es Obligatorio');
                     console.log('alias'); 
+                    that.hideAjax();
+                    that.txtAlias.focus();
                 }
             }else{
                 //app.showNotificactionVBC('* El campo Apellido Materno es Obligatorio');
-                console.log('apeMat');    
+                console.log('apeMat');
+                that.hideAjax();
+                that.txtApeMat.focus();    
             }
         }else{
             //app.showNotificactionVBC('* El campo Apellido Paterno es Obligatorio');
             console.log('apePat');
+            that.hideAjax();
+            that.txtApePat.focus();   
         }
     }else{
         //app.showNotificactionVBC('* El campo Nombre es Obligatorio');
         console.log('nombre');
+        that.hideAjax();
+        that.txtNombre.focus();   
     }
+}
+
+ProfileEdit.prototype.confirmUpdate = function(dataSet){
+    var rec = dataSet[0];
+    console.log(rec);
+
+    //app.showNotificactionVBC('Su información ha sido actualizada');
+    console.log('Información actualizada');
+    that.hideAjax();
+    location.href = 'profile.html';
 }
 
 ProfileEdit.prototype.fillDay = function(){
@@ -394,3 +555,27 @@ ProfileEdit.prototype.validatePhone = function(field){
         return true;
     }
 }
+
+//==================================//
+//MUESTRA ELEMENTOS DE ANIMACIÓN AJAX//
+//==================================//
+ProfileEdit.prototype.showAjax = function(){
+    //Carga imagen ajax
+    showWaitLoader('mascaraAJAX');
+    $('#mascaraAJAX').fadeIn(300);
+}
+//==========================================//
+//TERMINA MUESTRA ELEMENTOS DE ANIMACIÓN AJAX//
+//==========================================//
+
+//==================================//
+//OCULTA ELEMENTOS DE ANIMACIÓN AJAX//
+//==================================//
+ProfileEdit.prototype.hideAjax = function(){
+    //oculta imagen ajax
+    $('#mascaraAJAX').fadeOut(300);
+    $('#mascaraAJAX').html('');
+}
+//==========================================//
+//TERMINA OCULTA ELEMENTOS DE ANIMACIÓN AJAX//
+//==========================================//

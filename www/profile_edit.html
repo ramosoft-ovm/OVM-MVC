@@ -120,12 +120,12 @@
                            <tr>
                              <th><p>Contraseña:</p></th>
                              <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
-                             <td><input type="password" id="txtPassword"></td>
+                             <td><input type="text" id="txtPassword"></td>
                            </tr>
                            <tr>
                              <th><p>Confirmar Contraseña:</p></th>
                              <td><a href="#" class="required"><span class="icon-point-right"></span></a></td>
-                             <td><input type="password" id="txtConfirmPassword"></td>
+                             <td><input type="text" id="txtConfirmPassword"></td>
                            </tr>                                                      
                          </tbody>
                          <thead>
@@ -162,6 +162,7 @@
                             <tr style="height:70px">
                                 <td colspan="3" style="text-align:center">
                                     <a href="#" id="btnEdit" class="btn"><span class="icon-pencil icon"></span> Guardar Cambios</a>
+                                    <a href="#" id="btnCancel" class="btn"><span class="icon-cross icon"></span> Cancelar</a>
                                 </td>
                             </tr>
                             <tr>
@@ -177,6 +178,33 @@
                                     <input type="hidden" id="txtTelefonoBene"><!--Teléfono Benerificiario usuario oculto-->
                                     <input type="hidden" id="txtBanco"><!--Banco usuario oculto-->
                                     <input type="hidden" id="txtClabe"><!--Clabe Interbancaria usuario oculto-->
+                                    <input type="hidden" id="txtCompany"><!--Company usuario oculto-->
+                                    <input type="hidden" id="txtFax"><!--Fax usuario oculto-->
+                                    <input type="hidden" id="txtPager"><!--Pager usuario oculto-->
+                                    <input type="hidden" id="txtPaisFiscal"><!--País Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtCalleFiscal"><!--Calle Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtColoniaFiscal"><!--Colonia Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtCiudadFiscal"><!--Ciudad Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtEstadoFiscal"><!--Estado Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtCpFiscal"><!--CP Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtPaisPedidos"><!--País Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtCallePedidos"><!--Calle Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtColoniaPedidos"><!--Colonia Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtCiudadPedidos"><!--Ciudad Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtEstadoPedidos"><!--Estado Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtCpPedidos"><!--CP Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtNombrePedidos"><!--Nombre Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtIsOfficeComplete"><!--IsOfficeComplete usuario oculto-->
+                                    <input type="hidden" id="txtUserTypeId"><!--Tipo usuario oculto-->
+                                    <input type="hidden" id="txtNumContrato"><!--Número de Contrato usuario oculto-->
+                                    <input type="hidden" id="txtSapCode"><!--SAP CODE usuario oculto-->
+                                    <input type="hidden" id="txtNumExtFiscal"><!--Número Exterior Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtNumIntFiscal"><!--Número Interior Fiscal usuario oculto-->
+                                    <input type="hidden" id="txtModalType"><!--Modal Type usuario oculto-->
+                                    <input type="hidden" id="txtNumExtPedidos"><!--Número Exterior Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtNumIntPedidos"><!--Número Interior Pedidos usuario oculto-->
+                                    <input type="hidden" id="txtFiscalActivity"><!--Fiscal Activity usuario oculto-->
+                                    <input type="hidden" id="txtWarehouseId"><!--Id del Almacén usuario oculto-->
                                 </td>
                             </tr>
                          </tbody>
@@ -224,8 +252,8 @@
             menu.loadMenu();
 
             //Carga imagen ajax
-            //showWaitLoader('mascaraAJAX');
-            //$('#mascaraAJAX').fadeIn(300);
+            showWaitLoader('mascaraAJAX');
+            $('#mascaraAJAX').fadeIn(300);
 
             //EXTRACCIÓN DE USERID QUE EJECUTA LA APLICACIÓN//
             var userId = localStorage.getItem('userIdLocal');
@@ -260,9 +288,36 @@
             var txtTelefonoBene = document.getElementById('txtTelefonoBene');
             var txtBanco = document.getElementById('txtBanco');
             var txtClabe = document.getElementById('txtClabe');
+            var txtCompany = document.getElementById('txtCompany');
+            var txtFax = document.getElementById('txtFax');
+            var txtPager = document.getElementById('txtPager');
+            var txtPaisFiscal = document.getElementById('txtPaisFiscal');
+            var txtCalleFiscal = document.getElementById('txtCalleFiscal');
+            var txtColoniaFiscal = document.getElementById('txtColoniaFiscal');
+            var txtCiudadFiscal = document.getElementById('txtCiudadFiscal');
+            var txtEstadoFiscal = document.getElementById('txtEstadoFiscal');
+            var txtCpFiscal = document.getElementById('txtCpFiscal');
+            var txtPaisPedidos = document.getElementById('txtPaisPedidos');
+            var txtCallePedidos = document.getElementById('txtCallePedidos');
+            var txtColoniaPedidos = document.getElementById('txtColoniaPedidos');
+            var txtCiudadPedidos = document.getElementById('txtCiudadPedidos');
+            var txtEstadoPedidos = document.getElementById('txtEstadoPedidos');
+            var txtCpPedidos = document.getElementById('txtCpPedidos');
+            var txtNombrePedidos = document.getElementById('txtNombrePedidos');
+            var txtIsOfficeComplete = document.getElementById('txtIsOfficeComplete');
+            var txtUserTypeId = document.getElementById('txtUserTypeId');
+            var txtNumContrato = document.getElementById('txtNumContrato');
+            var txtSapCode = document.getElementById('txtSapCode');
+            var txtNumExtFiscal = document.getElementById('txtNumExtFiscal');
+            var txtNumIntFiscal = document.getElementById('txtNumIntFiscal');
+            var txtModalType = document.getElementById('txtModalType');
+            var txtNumExtPedidos = document.getElementById('txtNumExtPedidos');
+            var txtNumIntPedidos = document.getElementById('txtNumIntPedidos');
+            var txtFiscalActivity = document.getElementById('txtFiscalActivity');
+            var txtWarehouseId = document.getElementById('txtWarehouseId');
 
             //INSTANCIA A LA CLASE PROFILE EDIT//
-            var profileEdit = new ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, cmbMes, cmbAno, txtNacimiento, cmbSexo, cmbLanguage, txtPassword, txtConfirmPassword, txtTelefono, txtCelular, txtOtroTelefono, txtEmail, txtRFC, txtNumIFE, txtCurp, txtSkype, txtNomBene, txtApePatBene, txtApeMatBene, txtParentescoBene, txtTelefonoBene, txtBanco, txtClabe);
+            var profileEdit = new ProfileEdit(userId, txtNombre, txtApePat, txtApeMat, txtAlias, cmbDia, cmbMes, cmbAno, txtNacimiento, cmbSexo, cmbLanguage, txtPassword, txtConfirmPassword, txtTelefono, txtCelular, txtOtroTelefono, txtEmail, txtRFC, txtNumIFE, txtCurp, txtSkype, txtNomBene, txtApePatBene, txtApeMatBene, txtParentescoBene, txtTelefonoBene, txtBanco, txtClabe, txtCompany, txtFax, txtPager, txtPaisFiscal, txtCalleFiscal, txtColoniaFiscal, txtCiudadFiscal, txtEstadoFiscal, txtCpFiscal, txtPaisPedidos, txtCallePedidos, txtColoniaPedidos, txtCiudadPedidos, txtEstadoPedidos, txtCpPedidos, txtNombrePedidos, txtIsOfficeComplete, txtUserTypeId, txtNumContrato, txtSapCode, txtNumExtFiscal, txtNumIntFiscal, txtModalType, txtNumExtPedidos, txtNumIntPedidos, txtFiscalActivity, txtWarehouseId);
 
             //EVENTO DE BOTÓN GUARDAR CAMBIOS
             var btnEdit = document.getElementById('btnEdit');
@@ -270,6 +325,22 @@
                 event.preventDefault();
                 profileEdit.saveChanges();
             });
+
+            //EVENTO DE BOTÓN GUARDAR CAMBIOS
+            var btnCancel = document.getElementById('btnCancel');
+            btnCancel.addEventListener('click', function(event){
+                event.preventDefault();
+                location.href = 'profile.html';
+            });
+
+            //EVENTO DE LINK DE CAMPO REQUERIDO
+            var btnLink = document.getElementsByClassName('required')
+            for(var i = 0; i < btnLink.length; i++){                
+                btnLink[i].addEventListener('click', function(event){
+                    event.preventDefault();
+                });
+            }
+
     </script>
     </body>
 </html>

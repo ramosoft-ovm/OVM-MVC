@@ -151,13 +151,20 @@
 
             //EXTRACCIÓN DE USERID QUE EJECUTA LA APLICACIÓN//
             var userId = localStorage.getItem('userIdLocal');
-            var userId = 11;
+            var userId = 36;
 
             //INSTANCIA A LA CLASE CONTROL PANEL//
             var profile = new Profile();
 
             /*Devuelve conjunto de datos para cargar información de perfil del Usuario*/
             queryData('USP_VBC_GET_USER_PROFILE_INFO', ['integer', userId], profile.fillProfile);
+
+            //EVENTO DE BOTÓN GUARDAR CAMBIOS
+            var btnEdit = document.getElementById('btnEdit');
+            btnEdit.addEventListener('click', function(event){
+                event.preventDefault();
+                location.href = 'profile_edit.html';
+            });
     </script>
     </body>
 </html>
